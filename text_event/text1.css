@@ -1,3 +1,4 @@
+@media only screen and (min-width: 1023px){
  @keyframes 
 curveIn {  0% {
  opacity: 0;
@@ -21,4 +22,17 @@ to {
   animation-name: curveIn;
   -webkit-animation-duration: 3s;
   animation-duration: 3s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 }
