@@ -1,5 +1,7 @@
 @media only screen and (min-width: 1023px){ 
 body{margin: 0 auto;}
+ h1{font-size:1em;}
+ h2{font-size:1em;}
 .swiper-container{margin:0 auto;position:relative;overflow:hidden;list-style:none;padding:0;z-index:1}
 .swiper-container-no-flexbox
 .swiper-slide{float:left}
@@ -26,6 +28,7 @@ body{margin: 0 auto;}
 /*.swiper-container{
 	border-bottom: 3px solid grey;
 }*/
+/*//////////////////////////////////////////////////////////////////////////*/
 *,
 *:before,
 *:after {
@@ -34,7 +37,7 @@ body{margin: 0 auto;}
 
 .aos-all {
   width: 100%;
-  max-width: 98%;
+  max-width: 100%;
   margin: 10vh auto 0 auto;
 }
 
@@ -61,7 +64,7 @@ body{margin: 0 auto;}
   text-align: center;
   color: #fff;
 }
-
+/*//////////////////////////////////////////////////////////////////////////*/
 .nav{
 	margin:0 auto;
 	width:100%;
@@ -83,7 +86,7 @@ body{margin: 0 auto;}
 .nav .homebutton a{
 	text-decoration: none;
 	color:black;
-	font-size: 2em;
+	font-size: 30px;
 }
 .nav .homebutton a:hover{
 	color:red;
@@ -101,7 +104,7 @@ body{margin: 0 auto;}
 .nav .menu1 a{
 	text-decoration: none;
 	color:black;
-	font-size: 2em;
+	font-size: 30px;
 }
 .nav .menu1 a:hover{
 	color:red;
@@ -119,14 +122,42 @@ body{margin: 0 auto;}
 .nav .menu2 a{
 	text-decoration: none;
 	color:black;
-	font-size: 2em;
+	font-size: 30px;
 }
 .nav .menu2 a:hover{
 	color:red;
 	font-weight: bold;
 }
+.nav .title{
+	font-family: 'PT Serif', serif;
+	width:150px;
+	height:100%;
+	font-size: 2.5em;
+	font-weight: bold;
+	margin:0 auto; margin-top:-8px;
+}
+/*//////////////////////////////////////////////////////////////////////////*/
 
+.submenu1{
+	width:100%;
+	height:60px;
+	background: white;
+	z-index: 3;
+	display: none;
+	position: fixed; top:50px;
+	border-bottom: 1px solid black;
+}
+.submenu2{
+	width:100%;
+	height:60px;
+	background: white;
+	z-index: 3;
+	display: none;
+	position: fixed; top:50px;
+	border-bottom: 1px solid black;
+}
 
+/*//////////////////////////////////////////////////////////////////////////*/
 
 
 

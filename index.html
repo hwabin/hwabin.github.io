@@ -4,6 +4,7 @@
 <title>test</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <link href="https://fonts.googleapis.com/css?family=Libre+Caslon+Text&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=PT+Serif&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="aos-item/aos.css">
 <link rel="stylesheet" type="text/css" href="pc.css">
 <link rel="stylesheet" type="text/css" href="mobile.css">
@@ -11,9 +12,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> 
 <script src="text_event/text1.js"></script>
 <style>
-  h1{font-size:1em;}
-  h2{font-size:1em;}
-
+  /*//////////////////////////////////////////////////////////////////////////*/
  @media only screen and (min-width: 1023px){
 .text_event{
   text-align: center;
@@ -44,24 +43,37 @@ to {
   -webkit-animation-duration: 3s;
   animation-duration: 3s;
 }
+/*//////////////////////////////////////////////////////////////////////////*/
 
 
 
+
+
+
+/*//////////////////////////////////////////////////////////////////////////*/
 }
 </style>
 
 </head>
 <body>
 
-
+<!-- //////////////////////////////////////////////////////////////////////// -->
 <div class="nav">
 <div class = 'homebutton'><a href="#"><span>HOME</span></a></div>
 <div class="menu1"><a href="#"><span>MENU1</span></a></div>
 <div class="menu2"><a href="#"><span>MENU2</span></a></div>
+<div class="title"><span>TITLE</span></div>
 </div>
+<!-- //////////////////////////////////////////////////////////////////////// -->
+
+<div class="submenu1"></div>
+<div class="submenu2"></div>
+<!-- //////////////////////////////////////////////////////////////////////// -->
 
 
 
+
+<!-- //////////////////////////////////////////////////////////////////////// -->
 <div class="swiper-container">
 <div class="swiper-wrapper">
 <div class="swiper-slide" style = "background-image:url(main_image/1.jpg); background-size:100% 90%;background-repeat:no-repeat;"></div>
@@ -79,10 +91,15 @@ to {
  <!--    <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div> -->
 </div>
+<!-- //////////////////////////////////////////////////////////////////////// -->
 
 
+
+
+
+<!-- //////////////////////////////////////////////////////////////////////// -->
 <div id="transcroller-body" class="aos-all">
-
+<!-- //////////////////////////////////////////////////////////////////////// -->
 <div class="aos-item2" data-aos="zoom-out-up">
 <div class="aos-item__inner" style = "background: grey;">
 <div class="text_event">
@@ -93,7 +110,7 @@ to {
 </div>
 </div>
 </div>
-
+<!-- //////////////////////////////////////////////////////////////////////// -->
 <div class="aos-item" data-aos="fade-up">
 <div class="aos-item__inner" style = "background-image:url(main_image/10.jpg); background-size:100% 100%;background-repeat:no-repeat;"></div>
 </div>
@@ -111,23 +128,42 @@ to {
 </div>
 
 </div>
+<!-- //////////////////////////////////////////////////////////////////////// -->
+
+
+
+
+
+
+
 
 
 
 <script>
-// var t_1 = document.querySelector('.test1');
-// var t_2 = document.querySelector('.test2');
+var e_title = document.querySelector('.title');
+e_title.addEventListener('mouseover',function(){
+  e_title.style.fontSize = "3em";
+});
+e_title.addEventListener('mouseout',function(){
+  e_title.style.fontSize = "2.5em";  
+});
 
-// var test = setInterval(function(){
-//   t_1.style.left = (t_1.offsetLeft -10)+'px';
-//   t_2.style.left = (t_2.offsetLeft +10)+'px';
-// },30)
-// setTimeout(function(){
-//   clearInterval(test);
-//   t_1.style.display='none';
-//   t_2.style.display='none';
-// },2000);
-
+var e_submenu1 = document.querySelector('.submenu1');
+var e_menu1 = document.querySelector('.menu1');
+e_menu1.addEventListener('mouseover',function(){
+  e_submenu1.style.display='block';
+});
+e_menu1,e_submenu1.addEventListener('mouseout',function(){
+  e_submenu1.style.display='none';
+})
+var e_submenu2 = document.querySelector('.submenu1');
+var e_menu2 = document.querySelector('.menu2');
+e_menu2.addEventListener('mouseover',function(){
+  e_submenu2.style.display='block';
+});
+e_menu2,e_submenu1.addEventListener('mouseout',function(){
+  e_submenu2.style.display='none';
+})
 
 </script>
 <script src="slide1.js"></script>

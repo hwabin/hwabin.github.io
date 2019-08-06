@@ -1,5 +1,7 @@
 @media only screen and (max-width: 1023px){ 
 body{margin: 0 auto;}
+ h1{font-size:1em;}
+ h2{font-size:1em;}
 .swiper-container{margin:0 auto;position:relative;overflow:hidden;list-style:none;padding:0;z-index:1}
 .swiper-container-no-flexbox
 .swiper-slide{float:left}
@@ -61,7 +63,10 @@ body{margin: 0 auto;}
   text-align: center;
   color: #fff;
 }
-
+.aos-item2{
+	margin-top:200px;
+}
+/*//////////////////////////////////////////////////////////////////////////*/
 
 .nav{
 	margin:0 auto;
@@ -132,10 +137,11 @@ a:visited{
 	color:red;
 	font-weight: bold;
 }
-
-.aos-item2{
-	margin-top:200px;
+.nav .title{
+	display: none;
 }
+/*//////////////////////////////////////////////////////////////////////////*/
+
 
 
 
