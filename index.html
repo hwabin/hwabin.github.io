@@ -143,10 +143,17 @@ to {
 var e_title = document.querySelector('.title');
 e_title.addEventListener('mouseover',function(){
   e_title.style.fontSize = "3em";
+  e_title.style.cursor='pointer';
+  e_title.style.color = 'red';
 });
 e_title.addEventListener('mouseout',function(){
-  e_title.style.fontSize = "2.5em";  
+  e_title.style.fontSize = "2.5em";
+  e_title.style.color = 'black';  
 });
+e_title.addEventListener('click',function(){
+  window.scrollTo(0,0);
+})
+
 
 var e_submenu1 = document.querySelector('.submenu1');
 var e_menu1 = document.querySelector('.menu1');
@@ -164,6 +171,8 @@ e_menu2.addEventListener('mouseover',function(){
 e_menu2,e_submenu1.addEventListener('mouseout',function(){
   e_submenu2.style.display='none';
 })
+
+
 
 </script>
 <script src="slide1.js"></script>
