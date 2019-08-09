@@ -59,15 +59,27 @@ to {
 
 <!-- //////////////////////////////////////////////////////////////////////// -->
 <div class="nav">
-<div class = 'homebutton'><a href="#"><span>HOME</span></a></div>
+<div class = 'homebutton'><a href="#"><span>HOME</span></a></div><!-- <div class="mouse_off">zzz</div> -->
 <div class="menu1"><a href="#"><span>MENU1</span></a></div>
 <div class="menu2"><a href="#"><span>MENU2</span></a></div>
 <div class="title"><span>TITLE</span></div>
 </div>
 <!-- //////////////////////////////////////////////////////////////////////// -->
 
-<div class="submenu1"></div>
-<div class="submenu2"></div>
+<div class="submenu1">
+    <div class="s_menu"><a href = "#">메뉴1-1</a></div>
+    <div class="s_menu"><a href = "#">메뉴1-2</a></div>
+    <div class="s_menu"><a href = "#">메뉴1-3</a></div>
+    <div class="s_menu"><a href = "#">메뉴1-4</a></div>
+    <div class="s_menu"><a href = "#">메뉴1-5</a></div>
+</div>
+<div class="submenu2">
+    <div class="s_menu"><a href = "#">메뉴2-1</a></div>
+    <div class="s_menu"><a href = "#">메뉴2-2</a></div>
+    <div class="s_menu"><a href = "#">메뉴2-3</a></div>
+    <div class="s_menu"><a href = "#">메뉴2-4</a></div>
+    <div class="s_menu"><a href = "#">메뉴2-5</a></div>
+</div>
 <!-- //////////////////////////////////////////////////////////////////////// -->
 
 
@@ -140,39 +152,59 @@ to {
 
 
 <script>
-var e_title = document.querySelector('.title');
-e_title.addEventListener('mouseover',function(){
-  e_title.style.fontSize = "3em";
-  e_title.style.cursor='pointer';
-  e_title.style.color = 'red';
-});
-e_title.addEventListener('mouseout',function(){
-  e_title.style.fontSize = "2.5em";
-  e_title.style.color = 'black';  
-});
-e_title.addEventListener('click',function(){
-  window.scrollTo(0,0);
-})
+
+window.onload = function(){
+
+  var e_title = document.querySelector('.title');
+  e_title.addEventListener('mouseover',function(){
+    e_title.style.fontSize = "3em";
+    e_title.style.cursor='pointer';
+    e_title.style.color = 'red';
+  });
+  e_title.addEventListener('mouseout',function(){
+    e_title.style.fontSize = "2.5em";
+    e_title.style.color = 'black';  
+  });
+  e_title.addEventListener('click',function(){
+    window.scrollTo(0,0);
+  });
 
 
-var e_submenu1 = document.querySelector('.submenu1');
-var e_menu1 = document.querySelector('.menu1');
-e_menu1.addEventListener('mouseover',function(){
-  e_submenu1.style.display='block';
-});
-e_menu1,e_submenu1.addEventListener('mouseout',function(){
-  e_submenu1.style.display='none';
-})
-var e_submenu2 = document.querySelector('.submenu1');
-var e_menu2 = document.querySelector('.menu2');
-e_menu2.addEventListener('mouseover',function(){
-  e_submenu2.style.display='block';
-});
-e_menu2,e_submenu1.addEventListener('mouseout',function(){
-  e_submenu2.style.display='none';
-})
+
+  var e_submenu1 = document.querySelector('.submenu1');
+  var e_menu1 = document.querySelector('.menu1');
+  var e_submenu2 = document.querySelector('.submenu2');
+  var e_menu2 = document.querySelector('.menu2');
+
+  document.addEventListener('mousemove',e_test);
+  function e_test(event){
+    var e_x = event.clientX + document.body.scrollLeft;
+    var e_y = event.clientY + document.body.scrollTop;
+    if(e_y >= 115){
+      e_submenu1.style.display='none';
+      e_submenu2.style.display='none';
+    }
+  }
+  e_menu1.addEventListener('mouseover',function(){
+    e_submenu1.style.display='block';
+    e_submenu2.style.display='none';
+  });
+  e_menu2.addEventListener('mouseover',function(){
+    e_submenu2.style.display="block";
+    e_submenu1.style.display='none';
+  })
 
 
+
+
+
+
+// document.documentElement.scrollTop;
+
+
+
+
+}
 
 </script>
 <script src="slide1.js"></script>

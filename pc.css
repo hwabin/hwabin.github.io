@@ -111,6 +111,24 @@ body{margin: 0 auto;}
 	color:red;
 	font-weight: bold;
 }
+.s_menu{
+	float: right;
+	font-size:20px;
+	margin:10px;
+}
+.s_menu a{
+	text-decoration: none;
+	color: black;
+}
+.s_menu a:hover{
+	color:red;
+	font-weight: bold;
+}
+.s_menu a:visited{
+	color:black;
+}
+
+
 .nav .menu2{
 	width:150px;
 	height:100%;
@@ -163,5 +181,11 @@ body{margin: 0 auto;}
 
 
 
-
+/*.nav .mouse_off{
+width:200px;
+height:100%;
+color: red;
+position: relative;
+float: left;
+}*/
 }
