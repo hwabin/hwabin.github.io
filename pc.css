@@ -91,12 +91,13 @@ body{margin: 0 auto;}
 	font-family: 'Libre Caslon Text', serif;
 }
 .nav .homebutton a{
+	transition: all 1s;
 	text-decoration: none;
 	color:black;
 	font-size: 30px;
 }
 .nav .homebutton a:hover{
-	transition: 1s;
+	transition: all 1s;
 	color:red;
 	font-weight: bold;
 	font-size:40px;
@@ -113,6 +114,7 @@ body{margin: 0 auto;}
 	font-family: 'Libre Caslon Text', serif;
 }
 .nav .menu1 a{
+	transition:1s;
 	text-decoration: none;
 	color:black;
 	font-size: 30px;
@@ -132,11 +134,12 @@ body{margin: 0 auto;}
 	margin:10px;
 }
 .s_menu a{
+	transition:1s;
 	text-decoration: none;
 	color:black;
 }
 .s_menu a:hover{
-	transition: all 1s;
+	transition:1s;
 	color:red !important;
 	font-weight:bold;
 	font-size: 30px;
@@ -156,6 +159,7 @@ body{margin: 0 auto;}
 	font-family: 'Libre Caslon Text', serif;
 }
 .nav .menu2 a{
+	transition:1s;
 	text-decoration: none;
 	color:black;
 	font-size: 30px;
