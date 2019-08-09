@@ -28,7 +28,9 @@ body{margin: 0 auto;}
 /*.swiper-container{
 	border-bottom: 3px solid grey;
 }*/
+
 /*//////////////////////////////////////////////////////////////////////////*/
+
 *,
 *:before,
 *:after {
@@ -64,6 +66,7 @@ body{margin: 0 auto;}
   text-align: center;
   color: #fff;
 }
+
 /*//////////////////////////////////////////////////////////////////////////*/
 
 .nav{
@@ -75,6 +78,9 @@ body{margin: 0 auto;}
 	z-index: 2;
 	background: white;
 }
+
+/*//////////////////////////////////////////////////////////////////////////*/
+
 .nav .homebutton{
 	width:100px;
 	height:100%;
@@ -90,16 +96,20 @@ body{margin: 0 auto;}
 	font-size: 30px;
 }
 .nav .homebutton a:hover{
+	transition: 1s;
 	color:red;
 	font-weight: bold;
+	font-size:40px;
 }
+
+/*//////////////////////////////////////////////////////////////////////////*/
+
 .nav .menu1{
 	width:150px;
 	height:100%;
 	float: right;
 }
 .nav .menu1 span{
-	padding-right : 20px;
 	font-family: 'Libre Caslon Text', serif;
 }
 .nav .menu1 a{
@@ -108,9 +118,14 @@ body{margin: 0 auto;}
 	font-size: 30px;
 }
 .nav .menu1 a:hover{
+	transition: 1s;
 	color:red;
 	font-weight: bold;
+	font-size: 40px;
 }
+
+/*//////////////////////////////////////////////////////////////////////////*/
+
 .s_menu{
 	float: right;
 	font-size:20px;
@@ -121,13 +136,16 @@ body{margin: 0 auto;}
 	color:black;
 }
 .s_menu a:hover{
-	color:red;
+	transition: all 1s;
+	color:red !important;
 	font-weight:bold;
+	font-size: 30px;
 }
 .s_menu a:visited{
 	color:black;
 }
 
+/*//////////////////////////////////////////////////////////////////////////*/
 
 .nav .menu2{
 	width:150px;
@@ -135,7 +153,6 @@ body{margin: 0 auto;}
 	float: right;
 }
 .nav .menu2 span{
-	padding-right : 20px;
 	font-family: 'Libre Caslon Text', serif;
 }
 .nav .menu2 a{
@@ -144,17 +161,24 @@ body{margin: 0 auto;}
 	font-size: 30px;
 }
 .nav .menu2 a:hover{
+	transition: 1s;
 	color:red;
 	font-weight: bold;
+	font-size: 40px;
 }
+
+/*//////////////////////////////////////////////////////////////////////////*/
+
 .nav .title{
 	font-family: 'PT Serif', serif;
+	transition:all 1s;
 	width:150px;
 	height:100%;
 	font-size: 2.5em;
 	font-weight: bold;
-	margin:0 auto; margin-top:-8px;
+	margin:0 auto; margin-top:-5px;
 }
+
 /*//////////////////////////////////////////////////////////////////////////*/
 
 .submenu1{
