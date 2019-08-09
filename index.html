@@ -154,7 +154,7 @@ to {
 <script>
 
 window.onload = function(){
-
+  ////////////////////////////////////////////////////////////////////////
   var e_title = document.querySelector('.title');
   e_title.addEventListener('mouseover',function(){
     e_title.style.fontSize = "3em";
@@ -168,9 +168,10 @@ window.onload = function(){
   e_title.addEventListener('click',function(){
     window.scrollTo(0,0);
   });
+////////////////////////////////////////////////////////////////////////
 
 
-
+////////////////////////////////////////////////////////////////////////
   var e_submenu1 = document.querySelector('.submenu1');
   var e_menu1 = document.querySelector('.menu1');
   var e_submenu2 = document.querySelector('.submenu2');
@@ -193,13 +194,14 @@ window.onload = function(){
     e_submenu2.style.display="block";
     e_submenu1.style.display='none';
   })
+  // document.documentElement.scrollTop;
+
+////////////////////////////////////////////////////////////////////////
 
 
 
 
 
-
-// document.documentElement.scrollTop;
 
 
 
@@ -207,12 +209,15 @@ window.onload = function(){
 }
 
 </script>
+<!-- //////////////////////////////////////////////////////////////////////// -->
 <script src="slide1.js"></script>
 <script src="aos-item/aos.js"></script>
 <script>
+////////////////////////////////////////////////////////////////////////
       AOS.init({
         easing: 'ease-in-out-sine'
       });
+////////////////////////////////////////////////////////////////////////
 </script>
 </body>
 </html>
