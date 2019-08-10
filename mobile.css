@@ -28,6 +28,9 @@ body{margin: 0 auto;}
 /*.swiper-container{
 	border-bottom: 3px solid grey;
 }*/
+
+/*//////////////////////////////////////////////////////////////////////////*/
+
 *,
 *:before,
 *:after {
@@ -66,6 +69,7 @@ body{margin: 0 auto;}
 .aos-item2{
 	margin-top:200px;
 }
+
 /*//////////////////////////////////////////////////////////////////////////*/
 
 .nav{
@@ -96,9 +100,15 @@ body{margin: 0 auto;}
 	color:red;
 	font-weight: bold;
 }
+
+/*//////////////////////////////////////////////////////////////////////////*/
+
 a:visited{
 	color:black;
 }
+
+/*//////////////////////////////////////////////////////////////////////////*/
+
 .nav .menu1{
 	width:150px;
 	height:100%;
@@ -118,6 +128,9 @@ a:visited{
 	color:red;
 	font-weight: bold;
 }
+
+/*//////////////////////////////////////////////////////////////////////////*/
+
 .nav .menu2{
 	display: none;
 	width:150px;
@@ -137,9 +150,38 @@ a:visited{
 	color:red;
 	font-weight: bold;
 }
+
+/*//////////////////////////////////////////////////////////////////////////*/
+
+
+.s_menu{
+	float: right;
+	font-size:20px;
+	margin:10px;
+	display: none;
+}
+.s_menu a{
+	transition:1s;
+	text-decoration: none;
+	color:black;
+}
+.s_menu a:hover{
+	transition:1s;
+	color:red !important;
+	font-weight:bold;
+	font-size: 30px;
+}
+.s_menu a:visited{
+	color:black;
+}
+
+/*//////////////////////////////////////////////////////////////////////////*/
+
+
 .nav .title{
 	display: none;
 }
+
 /*//////////////////////////////////////////////////////////////////////////*/
 
 
