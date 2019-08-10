@@ -63,7 +63,19 @@ to {
 <div class="menu1"><a href="#"><span>MENU1</span></a></div>
 <div class="menu2"><a href="#"><span>MENU2</span></a></div>
 <div class="title"><span>TITLE</span></div>
+<div class="stage"> 
+  <div class="container">
+    <div class="line-top"></div>
+    <div class="line-middle"></div>
+    <div class="line-bottom"></div>
+  </div>
 </div>
+</div>
+
+<!-- //////////////////////////////////////////////////////////////////////// -->
+
+
+
 <!-- //////////////////////////////////////////////////////////////////////// -->
 
 <div class="submenu1">
@@ -206,10 +218,18 @@ window.onload = function(){
 
 ////////////////////////////////////////////////////////////////////////
 
+$(function() {
+    $(".container").on("click", function() {
+        var that = $(this);
+        if (that.hasClass("is-open")) {
+            that.removeClass("is-open").addClass("is-closed");
+        } else {
+            that.removeClass("is-closed").addClass("is-open");
+        }
+    });
+});
 
-
-
-
+////////////////////////////////////////////////////////////////////////
 
 
 
