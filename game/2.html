@@ -27,34 +27,7 @@ var ctx = canvas.getContext('2d');
   resizeCanvas();
 
 canvas.addEventListener('touchstart',touchH,false);
-
-function touchH(e){
-  e.preventDefault();
-  var touch_x = e.touches[0].clientX;
-  var touch_y = e.touches[0].clientY;
-  if(e.targetTouches.length==1){
-    if(touch_x>=pad_left_x&&touch_x<=pad_left_x+30){
-      if(touch_y>=pad_left_y&&touch_y<=pad_left_y+30){
-        alert('wow');
-      }
-    }
-    else if(touch_x>=pad_right_x&&touch_x<=pad_right_x+30){
-      if(touch_y>=pad_right_y&&touch_y<=pad_right_y+30){
-        alert('wow');
-      }
-    }
-    else if(touch_x>=pad_up_x&&touch_x<=pad_up_x+30){
-      if(touch_y>=pad_up_y&&touch_y<=pad_up_y+30){
-        alert('wow');
-      }
-    }
-    else if(touch_x>=pad_down_x&&touch_x<=pad_down_x+30){
-      if(touch_y>=pad_down_y&&touch_y<=pad_down_y+30){
-        alert('wow');
-      }
-    }    
-  }
-}
+canvas.addEventListener('touchend',touch_endH,false);
 var pad_left_x = 20;
 var pad_left_y = canvas.height-80;
 var pad_right_x = 100;
@@ -63,6 +36,45 @@ var pad_up_x = 60;
 var pad_up_y = canvas.height-120;
 var pad_down_x = 60;
 var pad_down_y = canvas.height-40;
+var touch_left = false;
+var touch_right = false;
+var touch_up = false;
+var touch_down = false;
+function touchH(e){
+  e.preventDefault();
+  var touch_x = e.touches[0].clientX;
+  var touch_y = e.touches[0].clientY;
+  if(e.targetTouches.length==1){
+    if(touch_x>=pad_left_x&&touch_x<=pad_left_x+30){
+      if(touch_y>=pad_left_y&&touch_y<=pad_left_y+30){
+        touch_left = true;
+      }
+    }
+    else if(touch_x>=pad_right_x&&touch_x<=pad_right_x+30){
+      if(touch_y>=pad_right_y&&touch_y<=pad_right_y+30){
+        touch_right = true;
+      }
+    }
+    else if(touch_x>=pad_up_x&&touch_x<=pad_up_x+30){
+      if(touch_y>=pad_up_y&&touch_y<=pad_up_y+30){
+        touch_up = true;
+      }
+    }
+    if(touch_x>=pad_down_x&&touch_x<=pad_down_x+30){
+      if(touch_y>=pad_down_y&&touch_y<=pad_down_y+30){
+        touch_down = true;
+      }
+    } 
+  }
+}
+function touch_endH(e){
+  touch_left = false;
+  touch_right = false;
+  touch_up = false;
+  touch_down = false;
+}
+
+
 
 function pad(){
   ctx.beginPath();
@@ -80,13 +92,27 @@ function pad(){
   ctx.fill();
   ctx.closePath();
 }
-
+var box_x = 100;
+var box_y = 100;
+var add_s = 1;
 function box(){
 	ctx.beginPath();
-	ctx.rect(100,100,50,50);
+	ctx.rect(box_x,box_y,50,50);
 	ctx.fillStyle="red";
 	ctx.fill();
 	ctx.closePath();
+  if(touch_left==true){
+    box_x -= add_s;
+  }
+  else if(touch_right==true){
+    box_x += add_s;
+  }
+  else if(touch_up==true){
+    box_y -= add_s;
+  }
+  else if(touch_down==true){
+    box_y += add_s;
+  }
 }
 
 function draw(){
