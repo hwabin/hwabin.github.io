@@ -46,18 +46,18 @@ function touchH(e){
   e.preventDefault();
   touch_x = e.touches[0].clientX;
   touch_y = e.touches[0].clientY;
-  if(e.targetTouches.length==1){
+  if(e.targetTouches.length=<2){
     if(touch_x>=pad_left_x&&touch_x<=pad_left_x+30){
       if(touch_y>=pad_left_y&&touch_y<=pad_left_y+30){
         touch_left = true;
       }
     }
-    else if(touch_x>=pad_right_x&&touch_x<=pad_right_x+30){
+    if(touch_x>=pad_right_x&&touch_x<=pad_right_x+30){
       if(touch_y>=pad_right_y&&touch_y<=pad_right_y+30){
         touch_right = true;
       }
     }
-    else if(touch_x>=pad_up_x&&touch_x<=pad_up_x+30){
+    if(touch_x>=pad_up_x&&touch_x<=pad_up_x+30){
       if(touch_y>=pad_up_y&&touch_y<=pad_up_y+30){
         touch_up = true;
       }
@@ -69,7 +69,7 @@ function touchH(e){
     } 
   }
 }
-function touch_endH(e){
+function touch_endH(){
     if(touch_x>=pad_left_x&&touch_x<=pad_left_x+30){
       if(touch_y>=pad_left_y&&touch_y<=pad_left_y+30){
         touch_left = false;
@@ -90,10 +90,6 @@ function touch_endH(e){
         touch_down = false;
       }
     } 
-  
-  
-  
-  
 }
 
 
