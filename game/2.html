@@ -18,25 +18,64 @@ html,body{width:100%; height:100%; margin: 0 auto; overscroll-behavior: none;}
 var canvas = document.querySelector('.canvas');
 var ctx = canvas.getContext('2d');
 
-    window.addEventListener('resize', resizeCanvas, false);
+  window.addEventListener('resize', resizeCanvas, false);
 
-    function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+
+canvas.addEventListener('touchstart',touchH,false);
+
+function touchH(e){
+  e.preventDefault();
+  var touch_x = e.touches[0].clientX;
+  var touch_y = e.touches[0].clientY;
+  if(e.targetTouches.length==1){
+    if(touch_x>=pad_left_x&&touch_x<=pad_left_x+30){
+      if(touch_y>=pad_left_y&&touch_y<=pad_left_y+30){
+        alert('wow');
+      }
     }
-    resizeCanvas();
+    else if(touch_x>=pad_right_x&&touch_x<=pad_right_x+30){
+      if(touch_y>=pad_right_y&&touch_y<=pad_right_y+30){
+        alert('wow');
+      }
+    }
+    else if(touch_x>=pad_up_x&&touch_x<=pad_up_x+30){
+      if(touch_y>=pad_up_y&&touch_y<=pad_up_y+30){
+        alert('wow');
+      }
+    }
+    else if(touch_x>=pad_down_x&&touch_x<=pad_down_x+30){
+      if(touch_y>=pad_down_y&&touch_y<=pad_down_y+30){
+        alert('wow');
+      }
+    }    
+  }
+}
+var pad_left_x = 20;
+var pad_left_y = canvas.height-80;
+var pad_right_x = 100;
+var pad_right_y = canvas.height-80;
+var pad_up_x = 60;
+var pad_up_y = canvas.height-120;
+var pad_down_x = 60;
+var pad_down_y = canvas.height-40;
+
 function pad(){
   ctx.beginPath();
-  ctx.rect(20,canvas.height-80,30,30);
+  ctx.rect(pad_left_x,pad_left_y,30,30);
   ctx.fillStyle = 'white';
   ctx.fill();
-  ctx.rect(100,canvas.height-80,30,30);
+  ctx.rect(pad_right_x,pad_right_y,30,30);
   ctx.fillStyle = 'white';
   ctx.fill();
-  ctx.rect(60,canvas.height-120,30,30);
+  ctx.rect(pad_up_x,pad_up_y,30,30);
   ctx.fillStyle = 'white';
   ctx.fill();
-  ctx.rect(60,canvas.height-40,30,30);
+  ctx.rect(pad_down_x,pad_down_y,30,30);
   ctx.fillStyle = 'white';
   ctx.fill();
   ctx.closePath();
