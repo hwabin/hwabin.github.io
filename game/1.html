@@ -43,8 +43,8 @@ let fire = false;
 function obj1(){
 	if(fire){
 		let obj = {};
-		obj.x = p_x+p_w-10;
-		obj.y = p_y+p_h-15;
+		obj.x = p_x+p_w/2+1;
+		obj.y = p_y+p_h-10;
 		obj.w = 20;
 		obj.h = 10;
 		obj.isDead = false;
@@ -59,10 +59,21 @@ function shell_maker(){
 	for(let i=0;i<shell_list.length;i++){
 		ctx.beginPath();
 		ctx.fillStyle = "white";
-		ctx.arc(shell_list[i].x ,shell_list[i].y, 20, 0, Math.PI * 2);
+		ctx.arc(shell_list[i].x ,shell_list[i].y, 5, 0, Math.PI * 2);
 		ctx.fill();
 		ctx.closePath();
-		shell_list[i].x += 50;
+		if(p1_list_num === 0){
+			shell_list[i].y -= 50;
+		}
+		else if(p1_list_num === 1){
+			shell_list[i].x += 50;
+		}
+		else if(p1_list_num === 2){
+			shell_list[i].y += 50;
+		}
+		else if(p1_list_num === 3){
+			shell_list[i].x -= 50;
+		}
 	}
 }
 
@@ -104,27 +115,38 @@ function player_draw(){
 }
 
 
-// function shell_check(){
-// 	for(let i=0;i<shell_list.length;i++){
-// 		if(shell_list[i].x >= canvas.width-30){
-// 			shell_list[i].isDead = true;
-// 		}
-// 	}
-// }
+function shell_check(){
+	for(let i=0;i<shell_list.length;i++){
+		if(shell_list[i].y <= 0 && p1_list_num === 0){
+			shell_list[i].isDead = true;
+		}
+		else if(shell_list[i].x <= 0 && p1_list_num === 3){
+			shell_list[i].isDead = true;
+		}
+		else if(shell_list[i].y >= canvas.height-30 && p1_list_num === 2){
+			shell_list[i].isDead = true;
+		}
+		else if(shell_list[i].x >= canvas.width-30 && p1_list_num === 1){
+			shell_list[i].isDead = true;
+		}
+	}
+}
 
-// function shell_remove(){
-// 	for(let i=shell_list.length-1;i>=0;i--){
-// 		if(shell_list[i].isDead){
-// 			shell_list.splice(i,1);
-// 		}
-// 	}
-// }
+function shell_remove(){
+	for(let i=shell_list.length-1;i>=0;i--){
+		if(shell_list[i].isDead){
+			shell_list.splice(i,1);
+		}
+	}
+}
 
 function draw(){
 	ctx.clearRect(0,0,canvas.width,canvas.height);
 	player_draw();
 	shell_maker();
 	obj1();
+	shell_check();
+	shell_remove();
 }
 setInterval(draw,10);
 </script>
