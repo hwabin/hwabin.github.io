@@ -20,69 +20,57 @@ body{margin:0 auto;}
 <script type="text/javascript">
 const canvas = document.querySelector(".canvas");
 const ctx = canvas.getContext("2d");
-let startX;
 
-canvas.addEventListener("touchstart",touch_H);
+let startX; //터치감지
 
-function touch_H(event){
+canvas.addEventListener("touchstart",touch_H); //터치이벤트
+
+let up_fire = false;
+let right_fire = false;
+let down_fire = false;
+let left_fire = false;
+
+function touch_H(event){ 				//터치 함수
 	event.preventDefault();
 	startX = event.touches[0].pageX;
-	if(startX <= canvas.width/2){
+	if(startX <= canvas.width/2){ 	// 좌측 화면 터치시 방향전환
 		p1_list_num++;
 		if(p1_list_num===4){
 			p1_list_num = 0;
 		}
-	}
-	else if(startX >= canvas.width/2){
-		fire = true;
-	}
-}
+	}		
 
-let fire = false;
-
-function obj1(){
-	if(fire){
-		let obj = {};
-		obj.x = p_x+p_w/2+1;
-		obj.y = p_y+p_h-10;
-		obj.w = 20;
-		obj.h = 10;
-		obj.isDead = false;
-		shell_list.push(obj);
-		fire = false;
-	}
-}
-
-let shell_list = [];
-
-function shell_maker(){
-	for(let i=0;i<shell_list.length;i++){
-		ctx.beginPath();
-		ctx.fillStyle = "white";
-		ctx.arc(shell_list[i].x ,shell_list[i].y, 5, 0, Math.PI * 2);
-		ctx.fill();
-		ctx.closePath();
-		if(p1_list_num === 0){
-			shell_list[i].y -= 50;
+	else if(p1_list_num === 0){		// 우측 화면 터치시 공격
+		if(startX >= canvas.width/2){
+			up_fire = true;
 		}
-		else if(p1_list_num === 1){
-			shell_list[i].x += 50;
+	}
+	else if(p1_list_num === 1){
+		if(startX >= canvas.width/2){
+			right_fire = true;
 		}
-		else if(p1_list_num === 2){
-			shell_list[i].y += 50;
+	}
+	else if(p1_list_num === 2){
+		if(startX >= canvas.width/2){
+			down_fire = true;
 		}
-		else if(p1_list_num === 3){
-			shell_list[i].x -= 50;
+	}
+	else if(p1_list_num === 3){
+		if(startX >= canvas.width/2){
+			left_fire = true;
 		}
 	}
 }
 
-const p1_up_img = new Image();
-p1_up_img.src = "p1_up.png";
+
+// 플레이어 
 let p_x = canvas.width/2-45;
 let p_y = canvas.height-50;
 let p_w = 50;
 let p_h = 50;
+
+const p1_up_img = new Image();
+p1_up_img.src = "p1_up.png";
 
 const p1_right_img = new Image();
 p1_right_img.src = "p1_right.png";
@@ -113,33 +101,145 @@ function player_draw(){
 			p_x--;
 		}
 }
+// 플레이어 //
 
+
+// 플레이어 포탄 로직
+function obj1(){
+	if(up_fire){
+		let obj = {};
+		obj.x = p_x+p_w/2+1;
+		obj.y = p_y+p_h-10;
+		obj.w = 20;
+		obj.h = 10;
+		obj.isDead = false;
+		shell_up_list.push(obj);
+		up_fire = false;
+	}
+	if(right_fire){
+		let obj = {};
+		obj.x = p_x+p_w/2+1;
+		obj.y = p_y+p_h-10;
+		obj.w = 20;
+		obj.h = 10;
+		obj.isDead = false;
+		shell_right_list.push(obj);
+		right_fire = false;
+	}
+	if(down_fire){
+		let obj = {};
+		obj.x = p_x+p_w/2+1;
+		obj.y = p_y+p_h-10;
+		obj.w = 20;
+		obj.h = 10;
+		obj.isDead = false;
+		shell_down_list.push(obj);
+		down_fire = false;
+	}
+	if(left_fire){
+		let obj = {};
+		obj.x = p_x+p_w/2+1;
+		obj.y = p_y+p_h-10;
+		obj.w = 20;
+		obj.h = 10;
+		obj.isDead = false;
+		shell_left_list .push(obj);
+		left_fire = false;
+	}
+}
+
+let shell_up_list = [];
+let shell_right_list = [];
+let shell_down_list = [];
+let shell_left_list = [];
+
+function shell_maker(){
+	for(let i=0;i<shell_up_list.length;i++){
+		ctx.beginPath();
+		ctx.fillStyle = "white";
+		ctx.arc(shell_up_list[i].x ,shell_up_list[i].y, 5, 0, Math.PI * 2);
+		ctx.fill();
+		ctx.closePath();
+		shell_up_list[i].y -= 30;
+	}
+	for(let i=0;i<shell_right_list.length;i++){
+		ctx.beginPath();
+		ctx.fillStyle = "white";
+		ctx.arc(shell_right_list[i].x ,shell_right_list[i].y, 5, 0, Math.PI * 2);
+		ctx.fill();
+		ctx.closePath();
+		shell_right_list[i].x += 30;
+	}
+	for(let i=0;i<shell_down_list.length;i++){
+		ctx.beginPath();
+		ctx.fillStyle = "white";
+		ctx.arc(shell_down_list[i].x ,shell_down_list[i].y, 5, 0, Math.PI * 2);
+		ctx.fill();
+		ctx.closePath();
+		shell_down_list[i].y += 30;
+	}
+	for(let i=0;i<shell_left_list.length;i++){
+		ctx.beginPath();
+		ctx.fillStyle = "white";
+		ctx.arc(shell_left_list[i].x ,shell_left_list[i].y, 5, 0, Math.PI * 2);
+		ctx.fill();
+		ctx.closePath();
+		shell_left_list[i].x -= 30;
+	}
+}
 
 function shell_check(){
-	for(let i=0;i<shell_list.length;i++){
-		if(shell_list[i].y <= 0 && p1_list_num === 0){
-			shell_list[i].isDead = true;
+	for(let i=0;i<shell_up_list.length;i++){
+		if(shell_up_list[i].y <= 0 && p1_list_num === 0){
+			shell_up_list[i].isDead = true;
 		}
-		else if(shell_list[i].x <= 0 && p1_list_num === 3){
-			shell_list[i].isDead = true;
+	}
+	for(let i=0;i<shell_right_list.length;i++){
+		if(shell_right_list[i].x <= 0 && p1_list_num === 3){
+			shell_right_list[i].isDead = true;
 		}
-		else if(shell_list[i].y >= canvas.height-30 && p1_list_num === 2){
-			shell_list[i].isDead = true;
+	}
+	for(let i=0;i<shell_down_list.length;i++){
+		if(shell_down_list[i].y >= canvas.height-30 && p1_list_num === 2){
+			shell_down_list[i].isDead = true;
 		}
-		else if(shell_list[i].x >= canvas.width-30 && p1_list_num === 1){
-			shell_list[i].isDead = true;
+	}
+	for(let i=0;i<shell_left_list.length;i++){
+		if(shell_left_list[i].x >= canvas.width-30 && p1_list_num === 1){
+			shell_left_list[i].isDead = true;
 		}
 	}
 }
 
 function shell_remove(){
-	for(let i=shell_list.length-1;i>=0;i--){
-		if(shell_list[i].isDead){
-			shell_list.splice(i,1);
+	for(let i=shell_up_list.length-1;i>=0;i--){
+		if(shell_up_list[i].isDead){
+			shell_up_list.splice(i,1);
+		}
+	}
+	for(let i=shell_right_list.length-1;i>=0;i--){
+		if(shell_right_list[i].isDead){
+			shell_right_list.splice(i,1);
+		}
+	}
+	for(let i=shell_down_list.length-1;i>=0;i--){
+		if(shell_down_list[i].isDead){
+			shell_down_list.splice(i,1);
+		}
+	}
+	for(let i=shell_left_list.length-1;i>=0;i--){
+		if(shell_left_list[i].isDead){
+			shell_left_list.splice(i,1);
 		}
 	}
 }
+// 플레이어 포탄 로직 //
 
+
+
+
+
+// 캔버스 드로우 함수
 function draw(){
 	ctx.clearRect(0,0,canvas.width,canvas.height);
 	player_draw();
@@ -149,6 +249,14 @@ function draw(){
 	shell_remove();
 }
 setInterval(draw,10);
+
+
+// ### 비고
+// 1. 포탄의 속도를 숫자가 아닌 변수사용으로 바꿔야함.
+//
+//
+//
+//
 </script>
 
 </body>
