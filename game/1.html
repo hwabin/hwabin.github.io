@@ -130,13 +130,13 @@ const menu_btn = document.querySelector(".menu_btn");
 const menu_close = document.querySelector(".menu_close");
 const menu_move = document.querySelector("#main_move");
 
-start_btn.addEventListener("click",function(){
+start_btn.addEventListener("touchstart",function(){
 	main_page.style.display="none";
 	canvas.style.display="block";
 	menu_btn.style.display="block";
 	// menu_bar.style.display="flex";
 });
-load_btn.addEventListener("click",function(){
+load_btn.addEventListener("touchstart",function(){
 	if(save_date === null){
 		alert("저장된 데이터가 없습니다.");
 	}
@@ -149,12 +149,12 @@ load_btn.addEventListener("click",function(){
 	// }
 });
 
-menu_btn.addEventListener("click",function(){
+menu_btn.addEventListener("touchstart",function(){
 	menu_btn.style.display="none";
 	menu.style.display="flex";
 });
 
-menu_close.addEventListener("click",function(){
+menu_close.addEventListener("touchstart",function(){
 	menu.style.display="none";
 	menu_btn.style.display="block";
 });
@@ -163,7 +163,7 @@ menu_close.addEventListener("click",function(){
 // 	localStorage.setItem("date",Number(gold));
 // });
 
-main_move.addEventListener("click",function(){
+main_move.addEventListener("touchstart",function(){
 	canvas.style.display="none";
 	main_page.style.display="flex";
 	menu_btn.style.display="none";
