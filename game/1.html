@@ -108,23 +108,37 @@ load_btn.addEventListener("click",function(){
 
 
 
-// let startX; //터치감지
+let startX; //터치감지
+let move_detect = false;
 
-// canvas.addEventListener("touchstart",touch_H); //터치이벤트
-
-// function touch_H(event){ 				//터치 함수
-// 	event.preventDefault();
-// 	startX = event.touches[0].pageX;
-// 	if(startX <= canvas.width/2){ 	// 좌측 화면 터치시 방향전환
-// 		p1_list_num++;
-// 		if(p1_list_num===4){
-// 			p1_list_num = 0;
-// 		}
-// 	}		
-// }
-
+canvas.addEventListener("touchstart",touch_H); //터치이벤트
+canvas.addEventListener("touchend",touch_end_H);
+function touch_H(event){ 				//터치 함수
+	event.preventDefault();
+	startX = event.touches[0].pageX;
+	if(startX <= canvas.width/2){ 	// 좌측 화면 터치시 방향전환
+		player_look=false;
+		move_detect = true;
+		}
+		else{
+			player_look=true;
+			move_detect = true;
+	}		
+}
+function touch_end_H(){
+	move_detect = false;
+}
+function player_move(){
+	if(move_detect&&player_look&&p_x<=canvas.width-55){
+		p_x += 5;
+	}
+	else if(move_detect&&player_look===false&&p_x>=5){
+		p_x -= 5;
+	}
+}
 
 // 플레이어 
+let player_look = true;
 let p_x = canvas.width/2-45;
 let p_y = canvas.height-100;
 let p_w = 50;
@@ -139,9 +153,16 @@ player_1_r.src = "player_1_r.png";
 
 
 function player_draw(){
+	if(player_look){
 		ctx.beginPath();
 		ctx.drawImage(player_1_f,p_x,p_y,p_w,p_h);
-		ctx.closePath();
+		ctx.closePath();		
+	}
+	else {
+		ctx.beginPath();
+		ctx.drawImage(player_1_r,p_x,p_y,p_w,p_h);
+		ctx.closePath();		
+	}
 }
 // 플레이어 //
 
@@ -153,6 +174,7 @@ function player_draw(){
 function draw(){
 	ctx.clearRect(0,0,canvas.width,canvas.height);
 	player_draw();
+	player_move();
 }
 setInterval(draw,10);
 
