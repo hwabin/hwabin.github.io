@@ -52,11 +52,43 @@ display: none;
 	justify-content:center;
 	align-items: center;
 }
+
+.wrap .menu_btn {
+	width:100px;
+	height:100px;
+	background: black;
+	display: none;
+	position: absolute; top : 100px; left : 200px;
+}
+
+.wrap .menu {
+	width:900px;
+	height:300px;
+	background: grey;
+	margin:0 auto;
+	position: absolute; top: 50px;
+	display: none;
+	transition: all 1s;
+}
+.wrap .menu .menu_close {
+	width:100px;
+	height: 100px;
+	background: black;
+
+}
 </style>
 </head>
 <body>
 <div class = "wrap">
 
+<div class="menu_btn">
+	
+</div>
+<div class="menu">
+	<div class="menu_close">
+		
+	</div>
+</div>
 <div class="main">
 	<div class="title">
 		
@@ -80,10 +112,13 @@ let save_date = localStorage.getItem("date");
 const start_btn = document.querySelector(".start_game");
 const load_btn = document.querySelector(".game_load");
 const main_page = document.querySelector(".main");
-
+const menu = document.querySelector(".menu");
+const menu_btn = document.querySelector(".menu_btn");
+const menu_close = document.querySelector(".menu_close");
 start_btn.addEventListener("click",function(){
 	main_page.style.display="none";
 	canvas.style.display="block";
+	menu_btn.style.display="block";
 	// menu_bar.style.display="flex";
 });
 load_btn.addEventListener("click",function(){
@@ -99,43 +134,53 @@ load_btn.addEventListener("click",function(){
 	// }
 });
 
+menu_btn.addEventListener("click",function(){
+	menu_btn.style.display="none";
+	menu.style.display="block";
+});
 
-
+menu_close.addEventListener("click",function(){
+	menu.style.display="none";
+	menu_btn.style.display="block";
+});
 // const save_btn = document.querySelector("#save");
 // save_btn.addEventListener("click",function(){
 // 	localStorage.setItem("date",Number(gold));
 // });
 
 
-
+// 터치이벤트
 let startX; //터치감지
-let move_detect = false;
+let move_detect = false; // 터치중에 이동하기 위한 감지기
 
-canvas.addEventListener("touchstart",touch_H); //터치이벤트
-canvas.addEventListener("touchend",touch_end_H);
+canvas.addEventListener("touchstart",touch_H); //터치 시작 이벤트
+canvas.addEventListener("touchend",touch_end_H); //터치 끝 이벤트
 function touch_H(event){ 				//터치 함수
 	event.preventDefault();
 	startX = event.touches[0].pageX;
-	if(startX <= canvas.width/2){ 	// 좌측 화면 터치시 방향전환
+	if(startX <= canvas.width/2){ 	//좌측화면 터치시 왼쪽보기
 		player_look=false;
 		move_detect = true;
 		}
 		else{
-			player_look=true;
+			player_look=true; // 우측화면 터치시 우측보기
 			move_detect = true;
 	}		
 }
+
 function touch_end_H(){
-	move_detect = false;
+	move_detect = false; //터치가 끝나는걸 감지
 }
 function player_move(){
 	if(move_detect&&player_look&&p_x<=canvas.width-55){
-		p_x += 5;
+		p_x += player_speed; //오른쪽 이동
 	}
 	else if(move_detect&&player_look===false&&p_x>=5){
-		p_x -= 5;
+		p_x -= player_speed; // 왼쪽 이동
 	}
 }
+// 터치이벤트 //
+
 
 // 플레이어 
 let player_look = true;
@@ -143,23 +188,22 @@ let p_x = canvas.width/2-45;
 let p_y = canvas.height-100;
 let p_w = 50;
 let p_h = 100;
-// let player_speed = 2;
+let player_speed = 3; // 이동속도
+
 const player_1_f = new Image();
 player_1_f.src = "player_1_f.png";
 
 const player_1_r = new Image();
 player_1_r.src = "player_1_r.png";
 
-
-
 function player_draw(){
 	if(player_look){
-		ctx.beginPath();
+		ctx.beginPath(); // 오른쪽 바라보기
 		ctx.drawImage(player_1_f,p_x,p_y,p_w,p_h);
 		ctx.closePath();		
 	}
 	else {
-		ctx.beginPath();
+		ctx.beginPath(); //왼쪽 바라보기
 		ctx.drawImage(player_1_r,p_x,p_y,p_w,p_h);
 		ctx.closePath();		
 	}
@@ -177,7 +221,7 @@ function draw(){
 	player_move();
 }
 setInterval(draw,10);
-
+// 캔버스 드로우 함수 //
 
 
 //
