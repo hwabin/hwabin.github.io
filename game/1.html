@@ -58,36 +58,49 @@ display: none;
 	height:100px;
 	background: black;
 	display: none;
-	position: absolute; top : 100px; left : 200px;
+	position: absolute; top : 100px; left : 800px;
 }
 
 .wrap .menu {
 	width:900px;
-	height:300px;
+	height:600px;
 	background: grey;
 	margin:0 auto;
 	position: absolute; top: 50px;
 	display: none;
 	transition: all 1s;
+	flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
 }
 .wrap .menu .menu_close {
 	width:100px;
 	height: 100px;
 	background: black;
-
+	position: absolute; top : 630px; left : 760px;
 }
+.wrap .menu .box1 {
+	width:100px; height:100px;
+	border: 2px solid black;
+	margin: 30px;}
 </style>
 </head>
 <body>
 <div class = "wrap">
 
-<div class="menu_btn">
-	
-</div>
+<div class="menu_btn"></div>
+
 <div class="menu">
-	<div class="menu_close">
-		
-	</div>
+	<div class="box1"></div>
+	<div class="box1"></div>
+	<div class="box1"></div>
+	<div class="box1"></div>
+	<div class="box1"></div>
+	<div class="box1"></div>
+	<div class="box1"></div>
+	<div class="box1"></div>
+	<div class="box1" id = "main_move"></div>
+	<div class="menu_close"></div>
 </div>
 <div class="main">
 	<div class="title">
@@ -115,6 +128,8 @@ const main_page = document.querySelector(".main");
 const menu = document.querySelector(".menu");
 const menu_btn = document.querySelector(".menu_btn");
 const menu_close = document.querySelector(".menu_close");
+const menu_move = document.querySelector("#main_move");
+
 start_btn.addEventListener("click",function(){
 	main_page.style.display="none";
 	canvas.style.display="block";
@@ -136,7 +151,7 @@ load_btn.addEventListener("click",function(){
 
 menu_btn.addEventListener("click",function(){
 	menu_btn.style.display="none";
-	menu.style.display="block";
+	menu.style.display="flex";
 });
 
 menu_close.addEventListener("click",function(){
@@ -148,6 +163,12 @@ menu_close.addEventListener("click",function(){
 // 	localStorage.setItem("date",Number(gold));
 // });
 
+main_move.addEventListener("click",function(){
+	canvas.style.display="none";
+	main_page.style.display="flex";
+	menu_btn.style.display="none";
+	menu.style.display="none";
+});
 
 // 터치이벤트
 let startX; //터치감지
