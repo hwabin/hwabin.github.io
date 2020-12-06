@@ -12,8 +12,9 @@ display: none;
 }
 .wrap {
 	width:900px;
-	height:1200px;
+	height:1300px;
 	margin:0 auto;
+	margin-top:50px;
 }
 .main {
 	background: grey;
@@ -107,60 +108,40 @@ load_btn.addEventListener("click",function(){
 
 
 
-let startX; //터치감지
+// let startX; //터치감지
 
-canvas.addEventListener("touchstart",touch_H); //터치이벤트
+// canvas.addEventListener("touchstart",touch_H); //터치이벤트
 
-function touch_H(event){ 				//터치 함수
-	event.preventDefault();
-	startX = event.touches[0].pageX;
-	if(startX <= canvas.width/2){ 	// 좌측 화면 터치시 방향전환
-		p1_list_num++;
-		if(p1_list_num===4){
-			p1_list_num = 0;
-		}
-	}		
-}
+// function touch_H(event){ 				//터치 함수
+// 	event.preventDefault();
+// 	startX = event.touches[0].pageX;
+// 	if(startX <= canvas.width/2){ 	// 좌측 화면 터치시 방향전환
+// 		p1_list_num++;
+// 		if(p1_list_num===4){
+// 			p1_list_num = 0;
+// 		}
+// 	}		
+// }
 
 
 // 플레이어 
 let p_x = canvas.width/2-45;
-let p_y = canvas.height-50;
+let p_y = canvas.height-100;
 let p_w = 50;
-let p_h = 50;
-let player_speed = 2;
-const p1_up_img = new Image();
-p1_up_img.src = "p1_up.png";
+let p_h = 100;
+// let player_speed = 2;
+const player_1_f = new Image();
+player_1_f.src = "player_1_f.png";
 
-const p1_right_img = new Image();
-p1_right_img.src = "p1_right.png";
+const player_1_r = new Image();
+player_1_r.src = "player_1_r.png";
 
-const p1_down_img = new Image();
-p1_down_img.src = "p1_down.png";
-
-const p1_left_img = new Image();
-p1_left_img.src = "p1_left.png";
-
-let p1_list = [p1_up_img,p1_right_img,p1_down_img,p1_left_img];
-let p1_list_num = 0;
 
 
 function player_draw(){
 		ctx.beginPath();
-		ctx.drawImage(p1_list[p1_list_num],p_x,p_y,p_w,p_h);
+		ctx.drawImage(player_1_f,p_x,p_y,p_w,p_h);
 		ctx.closePath();
-		if(p1_list_num===0 && p_y >= 0){
-			p_y-=player_speed;
-		}
-		else if(p1_list_num===1 && p_x <= canvas.width-50){
-			p_x+=player_speed;
-		}
-		else if(p1_list_num===2 && p_y <= canvas.height-50){
-			p_y+=player_speed;
-		}
-		else if(p1_list_num===3 && p_x >= 0){
-			p_x-=player_speed;
-		}
 }
 // 플레이어 //
 
