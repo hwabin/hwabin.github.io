@@ -1,19 +1,72 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 	<title></title>
 <style type="text/css">
+*{box-sizing: border-box;}
 body{margin:0 auto;}
-.canvas {background: black;}
+.canvas {background: white;
+border: 1px solid grey;
+display: none;
+}
 .wrap {
 	width:900px;
 	height:1200px;
 	margin:0 auto;
 }
+.main {
+	background: grey;
+	width:100%;
+	height:100%;
+	display: flex;
+	flex-direction:column;
+	align-items: center;
+	justify-content: center;
+}
+.main .title {
+	width:95%;
+	height:400px;
+	background: black;
+	position: relative; top:-200px;
+}
+.main .start_game {
+	width:500px;
+	height:100px;
+	font-size: 30px;
+	text-align: center;
+	border: 2px solid black;
+	display: flex;
+	justify-content:center;
+	align-items: center;
+	margin-bottom: 100px;
+}
+.main .game_load {
+	width:500px;
+	height:100px;
+	font-size: 30px;
+	text-align: center;
+	border: 2px solid black;
+	display: flex;
+	justify-content:center;
+	align-items: center;
+}
 </style>
 </head>
 <body>
 <div class = "wrap">
+
+<div class="main">
+	<div class="title">
+		
+	</div>
+	<div class="start_game">
+		처음시작
+	</div>
+	<div class="game_load">
+		이어하기
+	</div>
+</div>
 <canvas class="canvas" width="900" height="1300"></canvas>
 </div>
 
@@ -21,14 +74,42 @@ body{margin:0 auto;}
 const canvas = document.querySelector(".canvas");
 const ctx = canvas.getContext("2d");
 
+let save_date = localStorage.getItem("date");
+
+const start_btn = document.querySelector(".start_game");
+const load_btn = document.querySelector(".game_load");
+const main_page = document.querySelector(".main");
+
+start_btn.addEventListener("click",function(){
+	main_page.style.display="none";
+	canvas.style.display="block";
+	// menu_bar.style.display="flex";
+});
+load_btn.addEventListener("click",function(){
+	if(save_date === null){
+		alert("저장된 데이터가 없습니다.");
+	}
+	// else{
+	// 	let gold_inner = localStorage.getItem("date");
+	// 	gold_icon.innerHTML = gold_inner + " GOLD";
+	// 	main_page.style.display="none";
+	// 	menu_bar.style.display="flex";
+	// 	gold = Number(gold_inner);
+	// }
+});
+
+
+
+// const save_btn = document.querySelector("#save");
+// save_btn.addEventListener("click",function(){
+// 	localStorage.setItem("date",Number(gold));
+// });
+
+
+
 let startX; //터치감지
 
 canvas.addEventListener("touchstart",touch_H); //터치이벤트
-
-let up_fire = false;
-let right_fire = false;
-let down_fire = false;
-let left_fire = false;
 
 function touch_H(event){ 				//터치 함수
 	event.preventDefault();
@@ -39,27 +120,6 @@ function touch_H(event){ 				//터치 함수
 			p1_list_num = 0;
 		}
 	}		
-
-	else if(p1_list_num === 0){		// 우측 화면 터치시 공격
-		if(startX >= canvas.width/2){
-			up_fire = true;
-		}
-	}
-	else if(p1_list_num === 1){
-		if(startX >= canvas.width/2){
-			right_fire = true;
-		}
-	}
-	else if(p1_list_num === 2){
-		if(startX >= canvas.width/2){
-			down_fire = true;
-		}
-	}
-	else if(p1_list_num === 3){
-		if(startX >= canvas.width/2){
-			left_fire = true;
-		}
-	}
 }
 
 
@@ -68,7 +128,7 @@ let p_x = canvas.width/2-45;
 let p_y = canvas.height-50;
 let p_w = 50;
 let p_h = 50;
-
+let player_speed = 2;
 const p1_up_img = new Image();
 p1_up_img.src = "p1_up.png";
 
@@ -84,156 +144,25 @@ p1_left_img.src = "p1_left.png";
 let p1_list = [p1_up_img,p1_right_img,p1_down_img,p1_left_img];
 let p1_list_num = 0;
 
+
 function player_draw(){
 		ctx.beginPath();
 		ctx.drawImage(p1_list[p1_list_num],p_x,p_y,p_w,p_h);
 		ctx.closePath();
 		if(p1_list_num===0 && p_y >= 0){
-			p_y--;
+			p_y-=player_speed;
 		}
 		else if(p1_list_num===1 && p_x <= canvas.width-50){
-			p_x++;
+			p_x+=player_speed;
 		}
 		else if(p1_list_num===2 && p_y <= canvas.height-50){
-			p_y++;
+			p_y+=player_speed;
 		}
 		else if(p1_list_num===3 && p_x >= 0){
-			p_x--;
+			p_x-=player_speed;
 		}
 }
 // 플레이어 //
-
-
-// 플레이어 포탄 로직
-function obj1(){
-	if(up_fire){
-		let obj = {};
-		obj.x = p_x+p_w/2+1;
-		obj.y = p_y+p_h-10;
-		obj.w = 20;
-		obj.h = 10;
-		obj.isDead = false;
-		shell_up_list.push(obj);
-		up_fire = false;
-	}
-	if(right_fire){
-		let obj = {};
-		obj.x = p_x+p_w/2+1;
-		obj.y = p_y+p_h-10;
-		obj.w = 20;
-		obj.h = 10;
-		obj.isDead = false;
-		shell_right_list.push(obj);
-		right_fire = false;
-	}
-	if(down_fire){
-		let obj = {};
-		obj.x = p_x+p_w/2+1;
-		obj.y = p_y+p_h-10;
-		obj.w = 20;
-		obj.h = 10;
-		obj.isDead = false;
-		shell_down_list.push(obj);
-		down_fire = false;
-	}
-	if(left_fire){
-		let obj = {};
-		obj.x = p_x+p_w/2+1;
-		obj.y = p_y+p_h-10;
-		obj.w = 20;
-		obj.h = 10;
-		obj.isDead = false;
-		shell_left_list .push(obj);
-		left_fire = false;
-	}
-}
-
-let shell_up_list = [];
-let shell_right_list = [];
-let shell_down_list = [];
-let shell_left_list = [];
-
-function shell_maker(){
-	for(let i=0;i<shell_up_list.length;i++){
-		ctx.beginPath();
-		ctx.fillStyle = "white";
-		ctx.arc(shell_up_list[i].x ,shell_up_list[i].y, 5, 0, Math.PI * 2);
-		ctx.fill();
-		ctx.closePath();
-		shell_up_list[i].y -= 30;
-	}
-	for(let i=0;i<shell_right_list.length;i++){
-		ctx.beginPath();
-		ctx.fillStyle = "white";
-		ctx.arc(shell_right_list[i].x ,shell_right_list[i].y, 5, 0, Math.PI * 2);
-		ctx.fill();
-		ctx.closePath();
-		shell_right_list[i].x += 30;
-	}
-	for(let i=0;i<shell_down_list.length;i++){
-		ctx.beginPath();
-		ctx.fillStyle = "white";
-		ctx.arc(shell_down_list[i].x ,shell_down_list[i].y, 5, 0, Math.PI * 2);
-		ctx.fill();
-		ctx.closePath();
-		shell_down_list[i].y += 30;
-	}
-	for(let i=0;i<shell_left_list.length;i++){
-		ctx.beginPath();
-		ctx.fillStyle = "white";
-		ctx.arc(shell_left_list[i].x ,shell_left_list[i].y, 5, 0, Math.PI * 2);
-		ctx.fill();
-		ctx.closePath();
-		shell_left_list[i].x -= 30;
-	}
-}
-
-function shell_check(){
-	for(let i=0;i<shell_up_list.length;i++){
-		if(shell_up_list[i].y <= 0 && p1_list_num === 0){
-			shell_up_list[i].isDead = true;
-		}
-	}
-	for(let i=0;i<shell_right_list.length;i++){
-		if(shell_right_list[i].x <= 0 && p1_list_num === 3){
-			shell_right_list[i].isDead = true;
-		}
-	}
-	for(let i=0;i<shell_down_list.length;i++){
-		if(shell_down_list[i].y >= canvas.height-30 && p1_list_num === 2){
-			shell_down_list[i].isDead = true;
-		}
-	}
-	for(let i=0;i<shell_left_list.length;i++){
-		if(shell_left_list[i].x >= canvas.width-30 && p1_list_num === 1){
-			shell_left_list[i].isDead = true;
-		}
-	}
-}
-
-function shell_remove(){
-	for(let i=shell_up_list.length-1;i>=0;i--){
-		if(shell_up_list[i].isDead){
-			shell_up_list.splice(i,1);
-		}
-	}
-	for(let i=shell_right_list.length-1;i>=0;i--){
-		if(shell_right_list[i].isDead){
-			shell_right_list.splice(i,1);
-		}
-	}
-	for(let i=shell_down_list.length-1;i>=0;i--){
-		if(shell_down_list[i].isDead){
-			shell_down_list.splice(i,1);
-		}
-	}
-	for(let i=shell_left_list.length-1;i>=0;i--){
-		if(shell_left_list[i].isDead){
-			shell_left_list.splice(i,1);
-		}
-	}
-}
-// 플레이어 포탄 로직 //
 
 
 
@@ -243,19 +172,11 @@ function shell_remove(){
 function draw(){
 	ctx.clearRect(0,0,canvas.width,canvas.height);
 	player_draw();
-	shell_maker();
-	obj1();
-	shell_check();
-	shell_remove();
 }
 setInterval(draw,10);
 
 
-// ### 비고
-// 1. 포탄의 속도를 숫자가 아닌 변수사용으로 바꿔야함.
-// 2. 포탄발사 위치 조정.
-//
-//
+
 //
 </script>
 

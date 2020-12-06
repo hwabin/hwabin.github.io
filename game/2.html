@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<style type="text/css">
+body{margin:0 auto;}
+.canvas {background: black;}
+.wrap {
+	width:900px;
+	height:1200px;
+	margin:0 auto;
+}
+</style>
+</head>
+<body>
+<div class = "wrap">
+<canvas class="canvas" width="900" height="1300"></canvas>
+</div>
+
+<script type="text/javascript">
+const canvas = document.querySelector(".canvas");
+const ctx = canvas.getContext("2d");
+
+let startX; //터치감지
+
+canvas.addEventListener("touchstart",touch_H); //터치이벤트
+
+let up_fire = false;
+let right_fire = false;
+let down_fire = false;
+let left_fire = false;
+
+function touch_H(event){ 				//터치 함수
+	event.preventDefault();
+	startX = event.touches[0].pageX;
+	if(startX <= canvas.width/2){ 	// 좌측 화면 터치시 방향전환
+		p1_list_num++;
+		if(p1_list_num===4){
+			p1_list_num = 0;
+		}
+	}		
+
+	else if(p1_list_num === 0){		// 우측 화면 터치시 공격
+		if(startX >= canvas.width/2){
+			up_fire = true;
+		}
+	}
+	else if(p1_list_num === 1){
+		if(startX >= canvas.width/2){
+			right_fire = true;
+		}
+	}
+	else if(p1_list_num === 2){
+		if(startX >= canvas.width/2){
+			down_fire = true;
+		}
+	}
+	else if(p1_list_num === 3){
+		if(startX >= canvas.width/2){
+			left_fire = true;
+		}
+	}
+}
+
+
+// 플레이어 
+let p_x = canvas.width/2-45;
+let p_y = canvas.height-50;
+let p_w = 50;
+let p_h = 50;
+
+const p1_up_img = new Image();
+p1_up_img.src = "p1_up.png";
+
+const p1_right_img = new Image();
+p1_right_img.src = "p1_right.png";
+
+const p1_down_img = new Image();
+p1_down_img.src = "p1_down.png";
+
+const p1_left_img = new Image();
+p1_left_img.src = "p1_left.png";
+
+let p1_list = [p1_up_img,p1_right_img,p1_down_img,p1_left_img];
+let p1_list_num = 0;
+
+function player_draw(){
+		ctx.beginPath();
+		ctx.drawImage(p1_list[p1_list_num],p_x,p_y,p_w,p_h);
+		ctx.closePath();
+		if(p1_list_num===0 && p_y >= 0){
+			p_y--;
+		}
+		else if(p1_list_num===1 && p_x <= canvas.width-50){
+			p_x++;
+		}
+		else if(p1_list_num===2 && p_y <= canvas.height-50){
+			p_y++;
+		}
+		else if(p1_list_num===3 && p_x >= 0){
+			p_x--;
+		}
+}
+// 플레이어 //
+
+// 적 만들기
+const enemy1_up_img = new Image();
+enemy1_up_img.src = "enemy1_up.png";
+const enemy1_right_img = new Image();
+enemy1_right_img.src = "enemy1_right.png";
+const enemy1_down_img = new Image();
+enemy1_down_img.src = "enemy1_down.png";
+const enemy1_left_img = new Image();
+enemy1_left_img.src = "enemy1_left.png";
+let e1_x = canvas.width/2;
+let e1_y = 50;
+const e1_w = 50;
+const e1_h = 50;
+function enemy_draw(){
+	ctx.beginPath();
+	ctx.drawImage(enemy1_down_img,e1_x,e1_y,e1_w,e1_h);
+	ctx.closePath();
+}
+
+function enemy_check(){
+	for(let i=0;i<shell_up_list.length;i++){
+		for(let j=0;j<mig15_list.length;j++){
+		}
+	}
+}
+// 적 만들기 //
+
+// 플레이어 포탄 로직
+let shell_speed = 10; //포탄의 속도
+function obj1(){
+	if(up_fire){
+		let obj = {};
+		obj.x = p_x+p_w/2+1;
+		obj.y = p_y+p_h-10;
+		obj.w = 20;
+		obj.h = 10;
+		obj.isDead = false;
+		shell_up_list.push(obj);
+		up_fire = false;
+	}
+	if(right_fire){
+		let obj = {};
+		obj.x = p_x+p_w/2+1;
+		obj.y = p_y+p_h-10;
+		obj.w = 20;
+		obj.h = 10;
+		obj.isDead = false;
+		shell_right_list.push(obj);
+		right_fire = false;
+	}
+	if(down_fire){
+		let obj = {};
+		obj.x = p_x+p_w/2+1;
+		obj.y = p_y+p_h-10;
+		obj.w = 20;
+		obj.h = 10;
+		obj.isDead = false;
+		shell_down_list.push(obj);
+		down_fire = false;
+	}
+	if(left_fire){
+		let obj = {};
+		obj.x = p_x+p_w/2+1;
+		obj.y = p_y+p_h-10;
+		obj.w = 20;
+		obj.h = 10;
+		obj.isDead = false;
+		shell_left_list .push(obj);
+		left_fire = false;
+	}
+}
+
+let shell_up_list = [];
+let shell_right_list = [];
+let shell_down_list = [];
+let shell_left_list = [];
+
+function shell_maker(){
+	for(let i=0;i<shell_up_list.length;i++){
+		ctx.beginPath();
+		ctx.fillStyle = "white";
+		ctx.arc(shell_up_list[i].x ,shell_up_list[i].y, 5, 0, Math.PI * 2);
+		ctx.fill();
+		ctx.closePath();
+		shell_up_list[i].y -=  shell_speed;
+	}
+	for(let i=0;i<shell_right_list.length;i++){
+		ctx.beginPath();
+		ctx.fillStyle = "white";
+		ctx.arc(shell_right_list[i].x ,shell_right_list[i].y, 5, 0, Math.PI * 2);
+		ctx.fill();
+		ctx.closePath();
+		shell_right_list[i].x +=  shell_speed;
+	}
+	for(let i=0;i<shell_down_list.length;i++){
+		ctx.beginPath();
+		ctx.fillStyle = "white";
+		ctx.arc(shell_down_list[i].x ,shell_down_list[i].y, 5, 0, Math.PI * 2);
+		ctx.fill();
+		ctx.closePath();
+		shell_down_list[i].y +=  shell_speed;
+	}
+	for(let i=0;i<shell_left_list.length;i++){
+		ctx.beginPath();
+		ctx.fillStyle = "white";
+		ctx.arc(shell_left_list[i].x ,shell_left_list[i].y, 5, 0, Math.PI * 2);
+		ctx.fill();
+		ctx.closePath();
+		shell_left_list[i].x -=  shell_speed;
+	}
+}
+
+function shell_check(){
+	for(let i=0;i<shell_up_list.length;i++){
+		if(shell_up_list[i].y <= 0 && p1_list_num === 0){
+			shell_up_list[i].isDead = true;
+		}
+	}
+	for(let i=0;i<shell_right_list.length;i++){
+		if(shell_right_list[i].x <= 0 && p1_list_num === 3){
+			shell_right_list[i].isDead = true;
+		}
+	}
+	for(let i=0;i<shell_down_list.length;i++){
+		if(shell_down_list[i].y >= canvas.height-30 && p1_list_num === 2){
+			shell_down_list[i].isDead = true;
+		}
+	}
+	for(let i=0;i<shell_left_list.length;i++){
+		if(shell_left_list[i].x >= canvas.width-30 && p1_list_num === 1){
+			shell_left_list[i].isDead = true;
+		}
+	}
+}
+
+function shell_remove(){
+	for(let i=shell_up_list.length-1;i>=0;i--){
+		if(shell_up_list[i].isDead){
+			shell_up_list.splice(i,1);
+		}
+	}
+	for(let i=shell_right_list.length-1;i>=0;i--){
+		if(shell_right_list[i].isDead){
+			shell_right_list.splice(i,1);
+		}
+	}
+	for(let i=shell_down_list.length-1;i>=0;i--){
+		if(shell_down_list[i].isDead){
+			shell_down_list.splice(i,1);
+		}
+	}
+	for(let i=shell_left_list.length-1;i>=0;i--){
+		if(shell_left_list[i].isDead){
+			shell_left_list.splice(i,1);
+		}
+	}
+}
+// 플레이어 포탄 로직 //
+
+
+
+
+
+// 캔버스 드로우 함수
+function draw(){
+	ctx.clearRect(0,0,canvas.width,canvas.height);
+	player_draw();
+	enemy_draw();
+	shell_maker();
+	obj1();
+	shell_check();
+	shell_remove();
+}
+setInterval(draw,10);
+
+
+// ### 비고
+// 1. 포탄의 속도를 숫자가 아닌 변수사용으로 바꿔야함.
+// 2. 포탄발사 위치 조정.
+//
+//
+//
+</script>
+
+</body>
+</html>
