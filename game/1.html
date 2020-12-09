@@ -143,11 +143,27 @@ display: none;
 	font-weight: bold;
 }
 /*Field Page // */
+
+.wrap .top_text {
+	width:500px;
+	height:100px;
+	font-size: 40px;
+	font-weight: bold;
+	position: absolute;	
+	margin:20px;
+	display:none; 
+}
+.wrap .top_text div {
+	margin: 20px;
+}
 </style>
 </head>
 <body>
 <div class = "wrap">
-
+<div class="top_text">
+	<div id = "level_text">Lv 1</div>
+	<div id = "gold_text">GOLD</div>
+</div>
 <div class="menu_btn"></div>
 
 <div class="menu">
@@ -229,12 +245,13 @@ const menu_btn = document.querySelector(".menu_btn");
 const main_page = document.querySelector(".main");
 const menu = document.querySelector(".menu");
 const main_move = document.querySelector("#main_move");
-
+const top_text = document.querySelector(".top_text");
 // 스타트 버튼 눌렀을때 
 start_btn.addEventListener("touchstart",function(){
 	main_page.style.display="none";
 	canvas.style.display="block";
 	menu_btn.style.display="block";
+	top_text.style.display="block";
 	// menu_bar.style.display="flex";
 });
 // 스타트 버튼 눌렀을때 //
@@ -285,10 +302,17 @@ main_move.addEventListener("touchstart",function(){
 	menu_btn.style.display="none";
 	menu.style.display="none";
 	menu_close_btn.style.display="none";
+	top_text.style.display="none";
 });
 // 홈으로(메인페이지로가기)가기 버튼을 눌렀을때 //
 
 // 내정보 섹션
+		// 상단 정보 표시
+let level = 1;
+let gold = 0;
+const level_text = document.querySelector("#level_text");
+let gold_text = document.querySelector("#gold_text");
+		// 상단 정보 표시 //
 const myinfo_btn = document.querySelector("#myinfo_btn");
 const myinfo_page = document.querySelector(".myinfo_page");
 myinfo_btn.addEventListener("touchstart",function(){
@@ -319,9 +343,6 @@ mon1_R.src = "mon1_R.png";
 const mon1_L = new Image();
 mon1_L.src = "mon1_L.png";
 
-let iswork = false;
-let iswork_count = 0;
-
 const monster1_btn = document.querySelector("#monster1");
 monster1_btn.addEventListener("touchstart",function(){
 	iswork = true;
@@ -335,65 +356,69 @@ function random_num(){ //0~1의 랜덤숫자 만들기
 	monster_load_random = Math.floor(Math.random()*2);
 }
 
-function monster1_make(){
-	if(monster_load_random===0){
+function monster1_make(){ 
+	if(monster_load_random===0){  //왼쪽에서 나오는 몬스터
 		let mon1_R_obj = {};
 		mon1_R_obj.monster1_img = mon1_R;
 		mon1_R_obj.x = 0;
 		mon1_R_obj.y = canvas.height-50;
 		mon1_R_obj.w = 100;
 		mon1_R_obj.h = 50;
-		mon1_R_obj.s = 2;
+		mon1_R_obj.s = 1;
 		mon1_R_obj.isDead = false;
+		mon1_R_obj.damage = 10;
 		mon1_R_list.push(mon1_R_obj);
 	}
-	else if(monster_load_random===1){
+	else if(monster_load_random===1){ // 오른쪽에서 나오는 몬스터
 		let mon1_L_obj = {};
 		mon1_L_obj.monster1_img = mon1_L;
 		mon1_L_obj.x = canvas.width-100;
 		mon1_L_obj.y = canvas.height-50;
 		mon1_L_obj.w = 100;
 		mon1_L_obj.h = 50;
-		mon1_L_obj.s = 2;
+		mon1_L_obj.s = 1;
 		mon1_L_obj.isDead = false;
+		mon1_L_obj.damage = 10;
 		mon1_L_list.push(mon1_L_obj);
 	}
 }
 
 function mon1_R_draw(){
-	for(let i=0;i<mon1_R_list.length;i++){
+	for(let i=0;i<mon1_R_list.length;i++){ // 왼쪽에서 나오는 몬스터 그리기
 		let tmp = mon1_R_list[i];
 		ctx.beginPath();
 		ctx.drawImage(tmp.monster1_img, tmp.x, tmp.y, tmp.w, tmp.h);
 		ctx.closePath();
-		tmp.x += 2;	
+		tmp.x += 2;	 // 몬스터 이동속도
 	}
 }
-function mon1_L_draw(){
-	for(let i=0;i<mon1_L_list.length;i++){
+function mon1_L_draw(){ 
+	for(let i=0;i<mon1_L_list.length;i++){ // 오른쪽에서 나오는 몬스터 그리기
 		let tmp = mon1_L_list[i];
 		ctx.beginPath();
 		ctx.drawImage(tmp.monster1_img, tmp.x, tmp.y, tmp.w, tmp.h);
 		ctx.closePath();
-		tmp.x -= 2;
+		tmp.x -= 2; // 몬스터 이동속도
 	}
 }
 
-function monster_check(){
+function monster_check(){ // 몬스터를 삭제하는 로직
 	for(let i=0;i<mon1_R_list.length;i++){
 		if(mon1_R_list[i].x >= canvas.width/2-45){
 			mon1_R_list[i].isDead = true;
+			castle_hp_width -= mon1_R_list[i].damage;
 		}
 	}
 	for(let j=0;j<mon1_L_list.length;j++){	
 		if(mon1_L_list[j].x <=  canvas.width/2-45){
 			mon1_L_list[j].isDead = true;
+			castle_hp_width -= mon1_L_list[j].damage;
 		}
 	}
 }
 
 
-function monster_remove(){
+function monster_remove(){ // 몬스터를 배열에서 삭제
 	for(let i=mon1_R_list.length-1;i>=0;i--){
 		if(mon1_R_list[i].isDead){
 			mon1_R_list.splice(i,1);
@@ -407,18 +432,7 @@ function monster_remove(){
 }
 
 
-function mon1_R_remove(){
-	for(let i=mon1_R_list.length-1;i>=0;i--){
-		if(mon1_R_list[i].isDead){
-			mon1_R_list.splice(i,1);
-		}
-	}
-	for(let j=mon1_L_list.length-1;j>=0;j--){
-		if(mon1_L_list[j].isDead){
-			mon1_L_list.splice(j,1);
-		}		
-	}
-}
+
 // field page 섹션 //
 
 // 터치이벤트
@@ -461,7 +475,7 @@ let p_x = canvas.width/2-45;
 let p_y = canvas.height-100;
 let p_w = 50;
 let p_h = 100;
-let player_speed = 3; // 이동속도
+let player_speed = 4; // 이동속도
 
 const player_1_f = new Image();
 player_1_f.src = "player_1_f.png";
@@ -473,7 +487,7 @@ function player_draw(){
 	if(player_look){
 		ctx.beginPath(); // 오른쪽 바라보기
 		ctx.drawImage(player_1_f,p_x,p_y,p_w,p_h);
-		ctx.closePath();		
+		ctx.closePath();
 	}
 	else {
 		ctx.beginPath(); //왼쪽 바라보기
@@ -483,6 +497,61 @@ function player_draw(){
 }
 // 플레이어 //
 
+// 공격 
+
+let attack = false;
+function attack_check(){
+	for(let i=mon1_R_list.length-1;i>=0;i--){ // 왼쪽 공격 
+		let tmp = mon1_R_list[i];
+		if(p_x-100 <= tmp.x&&player_look===false){
+			tmp.isDead = true;
+			gold += 10;
+			gold_text.innerHTML = "GOLD  "+gold;
+		}
+	}
+
+	for(let j=mon1_L_list.length-1;j>=0;j--){ // 오른쪽 공격	
+		let tmp = mon1_L_list[j];
+		if(p_x+50 >= tmp.x&&player_look){
+			tmp.isDead = true;
+			gold += 10;
+			gold_text.innerHTML = "GOLD  "+gold;
+		}
+	}
+}
+
+// 공격 //
+
+
+// 무기
+
+// Stick
+const stick_R = new Image();
+stick_R.src = "stick_R.png";
+const stick_L = new Image();
+stick_L.src = "stick_L.png";
+const stick_R_after = new Image();
+stick_R_after.src = "stick_R_after.png";
+const stick_L_after = new Image();
+stick_L_after.src = "stick_L_after.png";
+// Stick //
+
+function weapon_draw(){
+	// stick
+	if(player_look){
+		ctx.beginPath();
+		ctx.drawImage(stick_R,p_x+50,p_y-40,50,100);
+		ctx.closePath();
+	}
+	else{
+		ctx.beginPath();
+		ctx.drawImage(stick_L,p_x-50,p_y-40,50,100);
+		ctx.closePath();		
+	}
+	// stick //
+}
+// 무기 //
+
 // castle 
 const castle = new Image();
 castle.src = "castle.png";
@@ -491,15 +560,22 @@ function castle_draw(){
 	ctx.drawImage(castle,canvas.width/2-50,canvas.height-200,100,200);
 	ctx.closePath();
 }
+	//castle 체력바
+let castle_hp_width = 250; //castle HP
+function castle_hp(){
+ctx.fillStyle = 'red';
+ctx.fillRect(canvas.width/2-125, canvas.height-270, castle_hp_width, 20);	
+}
 // castle //
 
 
 
-
+let iswork = false; 
+let iswork_count = 0;
 setInterval(function(){
 	if(iswork){monster1_make();
 		iswork_count++;
-		if(iswork_count>=10){
+		if(iswork_count>=10){ // 몬스터가 나오는 수
 			iswork = false;
 			if(iswork_count===10){
 				iswork_count = 0;
@@ -518,7 +594,10 @@ function draw(){
 	mon1_L_draw();
 	random_num();
 	monster_check();
-	mon1_R_remove();
+	monster_remove();
+	castle_hp();
+	weapon_draw();
+	attack_check();
 }
 setInterval(draw,10);
 // 캔버스 드로우 함수 //
