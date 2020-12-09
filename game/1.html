@@ -73,16 +73,76 @@ display: none;
   justify-content: center;
   align-items: center;
 }
-.wrap .menu .menu_close {
+.wrap img{
+	margin:0 auto;
+	width:90px;
+	height:90px;
+}
+.wrap .menu_close {
 	width:100px;
 	height: 100px;
 	background: black;
-	position: absolute; top : 630px; left : 760px;
+	position: absolute; top : 700px; left : 760px;
+	display: none;
 }
 .wrap .menu .box1 {
 	width:100px; height:100px;
 	border: 2px solid black;
-	margin: 30px;}
+	margin: 30px;
+	display: flex;
+	justify-content:center;
+	align-items: center;
+	font-size: 30px;
+	font-weight: bold;
+}
+.wrap .myinfo_page {
+	width:900px;
+	height:600px;
+	background: grey;
+	margin:0 auto;
+	position: absolute; top: 50px;
+	display: none;
+/*	flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;*/
+}
+
+.wrap .shop_page {
+	width:900px;
+	height:600px;
+	background: grey;
+	margin:0 auto;
+	position: absolute; top: 50px;
+	display: none;
+/*	flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;*/
+}
+
+.wrap .field_page {
+	width:900px;
+	height:600px;
+	background: grey;
+	margin:0 auto;
+	position: absolute; top: 50px;
+	display: none;
+	flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+/*Field Page */
+.field_page .field_box {
+	width:100px; height:100px;
+	border: 2px solid black;
+	margin: 30px;
+	display: flex;
+	justify-content:center;
+	align-items: center;
+	font-size: 30px;
+	font-weight: bold;
+}
+/*Field Page // */
 </style>
 </head>
 <body>
@@ -91,17 +151,53 @@ display: none;
 <div class="menu_btn"></div>
 
 <div class="menu">
+
+	<!-- 메뉴 아이콘들 -->
+	<div class="box1" id = "myinfo_btn">MyInfo</div>
+	<div class="box1" id = "shop_btn">SHOP</div>
+	<div class="box1" id = "field_btn">FIELD</div>
+	<div class="box1" id = "save_btn">SAVE</div>
 	<div class="box1"></div>
 	<div class="box1"></div>
 	<div class="box1"></div>
 	<div class="box1"></div>
-	<div class="box1"></div>
-	<div class="box1"></div>
-	<div class="box1"></div>
-	<div class="box1"></div>
-	<div class="box1" id = "main_move"></div>
-	<div class="menu_close"></div>
+	<div class="box1" id = "main_move">HOME</div>
+	<!-- 메뉴 아이콘들 // -->
+
 </div>
+
+<!-- 메뉴창이 내려와있을때 메뉴닫기 버튼 -->
+<div class="menu_close"></div>
+<!-- 메뉴창이 내려와있을때 메뉴닫기 버튼 // -->
+
+<!-- 내 정보창 페이지 -->
+<div class="myinfo_page">
+</div>
+<!-- 내 정보창 페이지  // -->
+
+<!-- shop 페이지 -->
+<div class="shop_page">
+</div>
+<!-- shop 페이지 // -->
+
+<!-- field 페이지 -->
+<div class="field_page">
+	<div class="field_box" id = "monster1"></div>
+	<div class="field_box"></div>
+	<div class="field_box"></div>
+	<div class="field_box"></div>
+	<div class="field_box"></div>
+	<div class="field_box"></div>
+	<div class="field_box"></div>
+	<div class="field_box"></div>
+	<div class="field_box"></div>
+	<div class="field_box"></div>
+	<div class="field_box"></div>
+	<div class="field_box"></div>
+</div>
+<!-- field 페이지 // -->
+
+<!-- 메인 화면 부분 -->
 <div class="main">
 	<div class="title">
 		
@@ -113,6 +209,8 @@ display: none;
 		이어하기
 	</div>
 </div>
+<!-- 메인 화면 부분 // -->
+
 <canvas class="canvas" width="900" height="1300"></canvas>
 </div>
 
@@ -121,21 +219,27 @@ const canvas = document.querySelector(".canvas");
 const ctx = canvas.getContext("2d");
 
 let save_date = localStorage.getItem("date");
-
+// 버튼 선택자들
 const start_btn = document.querySelector(".start_game");
 const load_btn = document.querySelector(".game_load");
+const menu_close_btn = document.querySelector(".menu_close");
+const menu_btn = document.querySelector(".menu_btn");
+// 버튼 선택자들 //
+
 const main_page = document.querySelector(".main");
 const menu = document.querySelector(".menu");
-const menu_btn = document.querySelector(".menu_btn");
-const menu_close = document.querySelector(".menu_close");
-const menu_move = document.querySelector("#main_move");
+const main_move = document.querySelector("#main_move");
 
+// 스타트 버튼 눌렀을때 
 start_btn.addEventListener("touchstart",function(){
 	main_page.style.display="none";
 	canvas.style.display="block";
 	menu_btn.style.display="block";
 	// menu_bar.style.display="flex";
 });
+// 스타트 버튼 눌렀을때 //
+
+// 이어하기 버튼 눌렀을때 
 load_btn.addEventListener("touchstart",function(){
 	if(save_date === null){
 		alert("저장된 데이터가 없습니다.");
@@ -148,27 +252,174 @@ load_btn.addEventListener("touchstart",function(){
 	// 	gold = Number(gold_inner);
 	// }
 });
+// 이어하기 버튼 눌렀을때 //
 
+// 메뉴버튼 눌렀을때 
 menu_btn.addEventListener("touchstart",function(){
 	menu_btn.style.display="none";
 	menu.style.display="flex";
+	menu_close_btn.style.display="block";
 });
+// 메뉴버튼 눌렀을때 //
 
-menu_close.addEventListener("touchstart",function(){
+// 메뉴닫기 버튼 눌렀을때 
+menu_close_btn.addEventListener("touchstart",function(){
 	menu.style.display="none";
 	menu_btn.style.display="block";
+	menu_close_btn.style.display="none";
+	myinfo_page.style.display="none";
+	shop_page.style.display="none";
+	field_page.style.display="none";
 });
+// 메뉴닫기 버튼 눌렀을때 //
+
 // const save_btn = document.querySelector("#save");
 // save_btn.addEventListener("click",function(){
 // 	localStorage.setItem("date",Number(gold));
 // });
 
+// 홈으로(메인페이지로가기)가기 버튼을 눌렀을때 
 main_move.addEventListener("touchstart",function(){
 	canvas.style.display="none";
 	main_page.style.display="flex";
 	menu_btn.style.display="none";
 	menu.style.display="none";
+	menu_close_btn.style.display="none";
 });
+// 홈으로(메인페이지로가기)가기 버튼을 눌렀을때 //
+
+// 내정보 섹션
+const myinfo_btn = document.querySelector("#myinfo_btn");
+const myinfo_page = document.querySelector(".myinfo_page");
+myinfo_btn.addEventListener("touchstart",function(){
+	myinfo_page.style.display="block";
+	menu.style.display="none";
+});
+// 내정보 섹션 //
+
+// shop 페이지 섹션
+const shop_btn = document.querySelector("#shop_btn");
+const shop_page = document.querySelector(".shop_page");
+shop_btn.addEventListener("touchstart",function(){
+	shop_page.style.display="block";
+	menu.style.display='none';	
+});
+// shop 페이지 섹션 //
+
+// field page 섹션 
+const field_btn = document.querySelector("#field_btn");
+const field_page = document.querySelector(".field_page");
+field_btn.addEventListener("touchstart",function(){
+	field_page.style.display="flex";
+	menu.style.display="none";
+});
+
+const mon1_R = new Image();
+mon1_R.src = "mon1_R.png";
+const mon1_L = new Image();
+mon1_L.src = "mon1_L.png";
+
+let iswork = false;
+let iswork_count = 0;
+
+const monster1_btn = document.querySelector("#monster1");
+monster1_btn.addEventListener("touchstart",function(){
+	iswork = true;
+});
+
+let mon1_R_list = [];
+let mon1_L_list = [];
+let monster_load_random = 0;
+
+function random_num(){ //0~1의 랜덤숫자 만들기
+	monster_load_random = Math.floor(Math.random()*2);
+}
+
+function monster1_make(){
+	if(monster_load_random===0){
+		let mon1_R_obj = {};
+		mon1_R_obj.monster1_img = mon1_R;
+		mon1_R_obj.x = 0;
+		mon1_R_obj.y = canvas.height-50;
+		mon1_R_obj.w = 100;
+		mon1_R_obj.h = 50;
+		mon1_R_obj.s = 2;
+		mon1_R_obj.isDead = false;
+		mon1_R_list.push(mon1_R_obj);
+	}
+	else if(monster_load_random===1){
+		let mon1_L_obj = {};
+		mon1_L_obj.monster1_img = mon1_L;
+		mon1_L_obj.x = canvas.width-100;
+		mon1_L_obj.y = canvas.height-50;
+		mon1_L_obj.w = 100;
+		mon1_L_obj.h = 50;
+		mon1_L_obj.s = 2;
+		mon1_L_obj.isDead = false;
+		mon1_L_list.push(mon1_L_obj);
+	}
+}
+
+function mon1_R_draw(){
+	for(let i=0;i<mon1_R_list.length;i++){
+		let tmp = mon1_R_list[i];
+		ctx.beginPath();
+		ctx.drawImage(tmp.monster1_img, tmp.x, tmp.y, tmp.w, tmp.h);
+		ctx.closePath();
+		tmp.x += 2;	
+	}
+}
+function mon1_L_draw(){
+	for(let i=0;i<mon1_L_list.length;i++){
+		let tmp = mon1_L_list[i];
+		ctx.beginPath();
+		ctx.drawImage(tmp.monster1_img, tmp.x, tmp.y, tmp.w, tmp.h);
+		ctx.closePath();
+		tmp.x -= 2;
+	}
+}
+
+function monster_check(){
+	for(let i=0;i<mon1_R_list.length;i++){
+		if(mon1_R_list[i].x >= canvas.width/2-45){
+			mon1_R_list[i].isDead = true;
+		}
+	}
+	for(let j=0;j<mon1_L_list.length;j++){	
+		if(mon1_L_list[j].x <=  canvas.width/2-45){
+			mon1_L_list[j].isDead = true;
+		}
+	}
+}
+
+
+function monster_remove(){
+	for(let i=mon1_R_list.length-1;i>=0;i--){
+		if(mon1_R_list[i].isDead){
+			mon1_R_list.splice(i,1);
+		}
+	}		
+	for(let j=mon1_L_list.length-1;j>=0;j--){
+		if(mon1_L_list[j].isDead){
+			mon1_L_list.splice(j,1);
+		}
+	}
+}
+
+
+function mon1_R_remove(){
+	for(let i=mon1_R_list.length-1;i>=0;i--){
+		if(mon1_R_list[i].isDead){
+			mon1_R_list.splice(i,1);
+		}
+	}
+	for(let j=mon1_L_list.length-1;j>=0;j--){
+		if(mon1_L_list[j].isDead){
+			mon1_L_list.splice(j,1);
+		}		
+	}
+}
+// field page 섹션 //
 
 // 터치이벤트
 let startX; //터치감지
@@ -176,6 +427,7 @@ let move_detect = false; // 터치중에 이동하기 위한 감지기
 
 canvas.addEventListener("touchstart",touch_H); //터치 시작 이벤트
 canvas.addEventListener("touchend",touch_end_H); //터치 끝 이벤트
+
 function touch_H(event){ 				//터치 함수
 	event.preventDefault();
 	startX = event.touches[0].pageX;
@@ -231,15 +483,42 @@ function player_draw(){
 }
 // 플레이어 //
 
+// castle 
+const castle = new Image();
+castle.src = "castle.png";
+function castle_draw(){
+	ctx.beginPath();
+	ctx.drawImage(castle,canvas.width/2-50,canvas.height-200,100,200);
+	ctx.closePath();
+}
+// castle //
 
 
 
+
+setInterval(function(){
+	if(iswork){monster1_make();
+		iswork_count++;
+		if(iswork_count>=10){
+			iswork = false;
+			if(iswork_count===10){
+				iswork_count = 0;
+			}
+		}
+	}
+},2000);// enemy maker
 
 // 캔버스 드로우 함수
 function draw(){
 	ctx.clearRect(0,0,canvas.width,canvas.height);
 	player_draw();
 	player_move();
+	castle_draw();
+	mon1_R_draw();
+	mon1_L_draw();
+	random_num();
+	monster_check();
+	mon1_R_remove();
 }
 setInterval(draw,10);
 // 캔버스 드로우 함수 //
