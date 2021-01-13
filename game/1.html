@@ -367,6 +367,8 @@ function monster1_make(){
 		mon1_R_obj.s = 1;
 		mon1_R_obj.isDead = false;
 		mon1_R_obj.damage = 10;
+		mon1_R_obj.hp = 10;
+		mon1_R_obj.gold = 10;
 		mon1_R_list.push(mon1_R_obj);
 	}
 	else if(monster_load_random===1){ // 오른쪽에서 나오는 몬스터
@@ -379,6 +381,8 @@ function monster1_make(){
 		mon1_L_obj.s = 1;
 		mon1_L_obj.isDead = false;
 		mon1_L_obj.damage = 10;
+		mon1_L_obj.hp = 10;
+		mon1_L_obj.gold = 10;
 		mon1_L_list.push(mon1_L_obj);
 	}
 }
@@ -402,6 +406,18 @@ function mon1_L_draw(){
 	}
 }
 
+function mon1_hp_draw(){
+	for(let i=0;i<mon1_R_list.length;i++){
+		ctx.fillStyle = 'red';
+		ctx.fillRect(mon1_R_list[i].x, canvas.height-170, mon1_R_list[i].hp, 20);
+	}
+	for(let i=0;i<mon1_L_list.length;i++){
+		ctx.fillStyle = 'red';
+		ctx.fillRect(mon1_L_list[i].x, canvas.height-170, mon1_L_list[i].hp, 20);
+	}
+
+}
+
 function monster_check(){ // 몬스터를 삭제하는 로직
 	for(let i=0;i<mon1_R_list.length;i++){
 		if(mon1_R_list[i].x >= canvas.width/2-45){
@@ -417,6 +433,25 @@ function monster_check(){ // 몬스터를 삭제하는 로직
 	}
 }
 
+// function monster_dead(){ // 몬스터를 삭제하는 로직
+// 	for(let i=0;i<mon1_R_list.length;i++){
+// 		for(let j=0;j<mon1_L_list.length;j++){
+// 			for(let k=0;k<shell_list_right.length;k++){
+// 				for(let l=0;l<shell_list_left.length;l++){
+
+// 					let mon1_right = mon1_R_list[i];
+// 					let mon1_left = mon1_L_list[j];
+// 					let shell_R = shell_list_right[k];
+// 					let shell_L = shell_list_left[l];
+
+// 					if(shell_list_right[k].x >= mon1_L_list[j].x){
+// 						alert("ee");
+// 					}
+// 				}
+// 			}		
+// 		}
+// 	}
+// }
 
 function monster_remove(){ // 몬스터를 배열에서 삭제
 	for(let i=mon1_R_list.length-1;i>=0;i--){
@@ -448,10 +483,10 @@ function touch_H(event){ 				//터치 함수
 	if(startX <= canvas.width/2){ 	//좌측화면 터치시 왼쪽보기
 		player_look=false;
 		move_detect = true;
-		}
-		else{
-			player_look=true; // 우측화면 터치시 우측보기
-			move_detect = true;
+	}
+	else{
+		player_look=true; // 우측화면 터치시 우측보기
+		move_detect = true;
 	}		
 }
 
@@ -470,7 +505,7 @@ function player_move(){
 
 
 // 플레이어 
-let player_look = true;
+let player_look = true; //true = 오른쪽을 바라봄.
 let p_x = canvas.width/2-45;
 let p_y = canvas.height-100;
 let p_w = 50;
@@ -497,44 +532,114 @@ function player_draw(){
 }
 // 플레이어 //
 
-// 공격 
 
+// 공격 
+let weapon_damage = [5,10];
+let weapon_state = 0;
 let attack = false;
+let test = canvas.height-100;
 function attack_check(){
 	for(let i=mon1_R_list.length-1;i>=0;i--){ // 왼쪽 공격 
 		let tmp = mon1_R_list[i];
 		if(p_x-100 <= tmp.x&&player_look===false){
-			tmp.isDead = true;
-			gold += 10;
-			gold_text.innerHTML = "GOLD  "+gold;
+			tmp.hp -= weapon_damage[weapon_state];
+			tmp.x -= 70;
+			if(tmp.hp<=0){ // HP가 0이되면 
+				tmp.isDead = true;
+				gold += tmp.gold;
+				gold_text.innerHTML = "GOLD  "+gold;
+			}
 		}
 	}
-
 	for(let j=mon1_L_list.length-1;j>=0;j--){ // 오른쪽 공격	
 		let tmp = mon1_L_list[j];
 		if(p_x+50 >= tmp.x&&player_look){
-			tmp.isDead = true;
-			gold += 10;
-			gold_text.innerHTML = "GOLD  "+gold;
+			tmp.hp -= weapon_damage[weapon_state];
+			tmp.x += 70;
+			if(tmp.hp<=0){ // HP가 0이되면 
+				tmp.isDead = true;
+				gold += tmp.gold;
+				gold_text.innerHTML = "GOLD  "+gold;
+			}
 		}
 	}
 }
+
+// let shell_list_right = [];
+// let shell_list_left = [];
+
+// function shell_draw(){
+// 	for(let i=0;i<shell_list_right.length;i++){
+// 		ctx.beginPath();
+// 		ctx.arc(shell_list_right[i].x,shell_list_right[i].y,4,0,Math.PI*2);
+// 		ctx.fillStyle = 'black';
+// 		ctx.fill();
+// 		ctx.closePath();
+// 		shell_list_right[i].x += 10;
+// 	}
+// 	for(let i=0;i<shell_list_left.length;i++){
+// 		ctx.beginPath();
+// 		ctx.arc(shell_list_left[i].x,shell_list_left[i].y,4,0,Math.PI*2);
+// 		ctx.fillStyle = 'black';
+// 		ctx.fill();
+// 		ctx.closePath();
+// 		shell_list_left[i].x -= 10;
+// 	}
+// }
+
+// function shell_check(){
+// 	for(let i=0;i<shell_list_right.length;i++){
+// 		if(shell_list_right[i].x >= canvas.width){
+// 			shell_list_right[i].isDead = true;
+// 		}
+// 	}
+// 	for(let i=0;i<shell_list_left.length;i++){
+// 		if(shell_list_left[i].x <= 0){
+// 			shell_list_left[i].isDead = true;
+// 		}
+// 	}
+// }
+
+// function remove_shell(){
+// 		for(let i=shell_list_right.length-1;i>=0;i--){
+// 			if(shell_list_right[i].isDead){
+// 				shell_list_right.splice(i,1);
+// 			}
+// 		}
+// 		for(let i=shell_list_left.length-1;i>=0;i--){
+// 			if(shell_list_left[i].isDead){
+// 				shell_list_left.splice(i,1);
+// 			}
+// 	}	
+// }
+
+// setInterval(function(){
+// 	if(iswork){ //몬스터가 나올때만 공격
+// 		if(player_look){
+// 			let obj = {};
+// 			obj.x = p_x+p_w/2;
+// 			obj.y = p_y+50;
+// 			obj.isDead = false;
+// 			shell_list_right.push(obj);
+// 		}
+// 		else if(player_look===false){
+// 			let obj = {};
+// 			obj.x = p_x+p_w/2;
+// 			obj.y = p_y+50;
+// 			obj.isDead = false;
+// 			shell_list_left.push(obj);
+// 		}
+// 	}
+// },500); // 공격속도
 
 // 공격 //
 
 
 // 무기
-
-// Stick
 const stick_R = new Image();
 stick_R.src = "stick_R.png";
 const stick_L = new Image();
 stick_L.src = "stick_L.png";
-const stick_R_after = new Image();
-stick_R_after.src = "stick_R_after.png";
-const stick_L_after = new Image();
-stick_L_after.src = "stick_L_after.png";
-// Stick //
 
 function weapon_draw(){
 	// stick
@@ -560,11 +665,14 @@ function castle_draw(){
 	ctx.drawImage(castle,canvas.width/2-50,canvas.height-200,100,200);
 	ctx.closePath();
 }
+
 	//castle 체력바
 let castle_hp_width = 250; //castle HP
 function castle_hp(){
+ctx.beginPath();
 ctx.fillStyle = 'red';
 ctx.fillRect(canvas.width/2-125, canvas.height-270, castle_hp_width, 20);	
+ctx.closePath();
 }
 // castle //
 
@@ -573,7 +681,8 @@ ctx.fillRect(canvas.width/2-125, canvas.height-270, castle_hp_width, 20);
 let iswork = false; 
 let iswork_count = 0;
 setInterval(function(){
-	if(iswork){monster1_make();
+	if(iswork){
+		monster1_make();
 		iswork_count++;
 		if(iswork_count>=10){ // 몬스터가 나오는 수
 			iswork = false;
@@ -584,6 +693,7 @@ setInterval(function(){
 	}
 },2000);// enemy maker
 
+
 // 캔버스 드로우 함수
 function draw(){
 	ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -592,12 +702,17 @@ function draw(){
 	castle_draw();
 	mon1_R_draw();
 	mon1_L_draw();
+	mon1_hp_draw();
 	random_num();
 	monster_check();
+	// monster_dead();
 	monster_remove();
 	castle_hp();
-	weapon_draw();
 	attack_check();
+	weapon_draw();
+	// shell_draw();
+	// shell_check();
+	// remove_shell();
 }
 setInterval(draw,10);
 // 캔버스 드로우 함수 //
