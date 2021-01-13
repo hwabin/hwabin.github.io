@@ -159,6 +159,11 @@ display: none;
 </style>
 </head>
 <body>
+
+<!--/////////////////////////////////////////////////////////////// -->
+<!--/////////////////////////////////////////////////////////////// -->
+<!--/////////////////////////////////////////////////////////////// -->
+
 <div class = "wrap">
 <div class="top_text">
 	<div id = "level_text">Lv 1</div>
@@ -227,6 +232,12 @@ display: none;
 </div>
 <!-- 메인 화면 부분 // -->
 
+
+<!--/////////////////////////////////////////////////////////////// -->
+<!--/////////////////////////////////////////////////////////////// -->
+<!--/////////////////////////////////////////////////////////////// -->
+
+
 <canvas class="canvas" width="900" height="1300"></canvas>
 </div>
 
@@ -235,18 +246,18 @@ const canvas = document.querySelector(".canvas");
 const ctx = canvas.getContext("2d");
 
 let save_date = localStorage.getItem("date");
-// 버튼 선택자들
+//--------- 버튼 선택자들 ---------
 const start_btn = document.querySelector(".start_game");
 const load_btn = document.querySelector(".game_load");
 const menu_close_btn = document.querySelector(".menu_close");
 const menu_btn = document.querySelector(".menu_btn");
-// 버튼 선택자들 //
+//--------- 버튼 선택자들 ---------//
 
 const main_page = document.querySelector(".main");
 const menu = document.querySelector(".menu");
 const main_move = document.querySelector("#main_move");
 const top_text = document.querySelector(".top_text");
-// 스타트 버튼 눌렀을때 
+//--------- 스타트 버튼 눌렀을때 ---------
 start_btn.addEventListener("touchstart",function(){
 	main_page.style.display="none";
 	canvas.style.display="block";
@@ -254,9 +265,9 @@ start_btn.addEventListener("touchstart",function(){
 	top_text.style.display="block";
 	// menu_bar.style.display="flex";
 });
-// 스타트 버튼 눌렀을때 //
+//--------- 스타트 버튼 눌렀을때 ---------//
 
-// 이어하기 버튼 눌렀을때 
+//--------- 이어하기 버튼 눌렀을때 ---------
 load_btn.addEventListener("touchstart",function(){
 	if(save_date === null){
 		alert("저장된 데이터가 없습니다.");
@@ -269,17 +280,17 @@ load_btn.addEventListener("touchstart",function(){
 	// 	gold = Number(gold_inner);
 	// }
 });
-// 이어하기 버튼 눌렀을때 //
+//--------- 이어하기 버튼 눌렀을때 ---------//
 
-// 메뉴버튼 눌렀을때 
+//--------- 메뉴버튼 눌렀을때 ---------
 menu_btn.addEventListener("touchstart",function(){
 	menu_btn.style.display="none";
 	menu.style.display="flex";
 	menu_close_btn.style.display="block";
 });
-// 메뉴버튼 눌렀을때 //
+//--------- 메뉴버튼 눌렀을때 ---------//
 
-// 메뉴닫기 버튼 눌렀을때 
+//--------- 메뉴닫기 버튼 눌렀을때 ---------
 menu_close_btn.addEventListener("touchstart",function(){
 	menu.style.display="none";
 	menu_btn.style.display="block";
@@ -288,14 +299,14 @@ menu_close_btn.addEventListener("touchstart",function(){
 	shop_page.style.display="none";
 	field_page.style.display="none";
 });
-// 메뉴닫기 버튼 눌렀을때 //
+//--------- 메뉴닫기 버튼 눌렀을때 ---------//
 
 // const save_btn = document.querySelector("#save");
 // save_btn.addEventListener("click",function(){
 // 	localStorage.setItem("date",Number(gold));
 // });
 
-// 홈으로(메인페이지로가기)가기 버튼을 눌렀을때 
+//--------- 홈으로(메인페이지로가기)가기 버튼을 눌렀을때 ---------
 main_move.addEventListener("touchstart",function(){
 	canvas.style.display="none";
 	main_page.style.display="flex";
@@ -304,9 +315,11 @@ main_move.addEventListener("touchstart",function(){
 	menu_close_btn.style.display="none";
 	top_text.style.display="none";
 });
-// 홈으로(메인페이지로가기)가기 버튼을 눌렀을때 //
+//--------- 홈으로(메인페이지로가기)가기 버튼을 눌렀을때 ---------//
 
-// 내정보 섹션
+
+
+//--------- 내정보 섹션 ---------
 		// 상단 정보 표시
 let level = 1;
 let gold = 0;
@@ -319,18 +332,22 @@ myinfo_btn.addEventListener("touchstart",function(){
 	myinfo_page.style.display="block";
 	menu.style.display="none";
 });
-// 내정보 섹션 //
+//--------- 내정보 섹션 ---------//
 
-// shop 페이지 섹션
+
+
+//--------- shop 페이지 섹션 ---------
 const shop_btn = document.querySelector("#shop_btn");
 const shop_page = document.querySelector(".shop_page");
 shop_btn.addEventListener("touchstart",function(){
 	shop_page.style.display="block";
 	menu.style.display='none';	
 });
-// shop 페이지 섹션 //
+//--------- shop 페이지 섹션 ---------//
 
-// field page 섹션 
+
+
+//--------- field page 섹션 --------- 
 const field_btn = document.querySelector("#field_btn");
 const field_page = document.querySelector(".field_page");
 field_btn.addEventListener("touchstart",function(){
@@ -368,7 +385,7 @@ function monster1_make(){
 		mon1_R_obj.isDead = false;
 		mon1_R_obj.damage = 10;
 		mon1_R_obj.hp = 10;
-		mon1_R_obj.gold = 10;
+		mon1_R_obj.gold = 10; 
 		mon1_R_list.push(mon1_R_obj);
 	}
 	else if(monster_load_random===1){ // 오른쪽에서 나오는 몬스터
@@ -433,25 +450,6 @@ function monster_check(){ // 몬스터를 삭제하는 로직
 	}
 }
 
-// function monster_dead(){ // 몬스터를 삭제하는 로직
-// 	for(let i=0;i<mon1_R_list.length;i++){
-// 		for(let j=0;j<mon1_L_list.length;j++){
-// 			for(let k=0;k<shell_list_right.length;k++){
-// 				for(let l=0;l<shell_list_left.length;l++){
-
-// 					let mon1_right = mon1_R_list[i];
-// 					let mon1_left = mon1_L_list[j];
-// 					let shell_R = shell_list_right[k];
-// 					let shell_L = shell_list_left[l];
-
-// 					if(shell_list_right[k].x >= mon1_L_list[j].x){
-// 						alert("ee");
-// 					}
-// 				}
-// 			}		
-// 		}
-// 	}
-// }
 
 function monster_remove(){ // 몬스터를 배열에서 삭제
 	for(let i=mon1_R_list.length-1;i>=0;i--){
@@ -466,11 +464,12 @@ function monster_remove(){ // 몬스터를 배열에서 삭제
 	}
 }
 
+//--------- field page 섹션 ---------//
 
 
-// field page 섹션 //
 
-// 터치이벤트
+
+//--------- 터치이벤트 ---------
 let startX; //터치감지
 let move_detect = false; // 터치중에 이동하기 위한 감지기
 
@@ -501,10 +500,10 @@ function player_move(){
 		p_x -= player_speed; // 왼쪽 이동
 	}
 }
-// 터치이벤트 //
+//--------- 터치이벤트 ---------//
 
 
-// 플레이어 
+//--------- 플레이어 ---------
 let player_look = true; //true = 오른쪽을 바라봄.
 let p_x = canvas.width/2-45;
 let p_y = canvas.height-100;
@@ -530,10 +529,10 @@ function player_draw(){
 		ctx.closePath();		
 	}
 }
-// 플레이어 //
+//--------- 플레이어 ---------//
 
 
-// 공격 
+//--------- 공격 ---------
 let weapon_damage = [5,10];
 let weapon_state = 0;
 let attack = false;
@@ -551,8 +550,8 @@ function attack_check(){
 			}
 		}
 	}
-	for(let j=mon1_L_list.length-1;j>=0;j--){ // 오른쪽 공격	
-		let tmp = mon1_L_list[j];
+	for(let i=mon1_L_list.length-1;i>=0;i--){ // 오른쪽 공격	
+		let tmp = mon1_L_list[i];
 		if(p_x+50 >= tmp.x&&player_look){
 			tmp.hp -= weapon_damage[weapon_state];
 			tmp.x += 70;
@@ -565,77 +564,10 @@ function attack_check(){
 	}
 }
 
-// let shell_list_right = [];
-// let shell_list_left = [];
-
-// function shell_draw(){
-// 	for(let i=0;i<shell_list_right.length;i++){
-// 		ctx.beginPath();
-// 		ctx.arc(shell_list_right[i].x,shell_list_right[i].y,4,0,Math.PI*2);
-// 		ctx.fillStyle = 'black';
-// 		ctx.fill();
-// 		ctx.closePath();
-// 		shell_list_right[i].x += 10;
-// 	}
-// 	for(let i=0;i<shell_list_left.length;i++){
-// 		ctx.beginPath();
-// 		ctx.arc(shell_list_left[i].x,shell_list_left[i].y,4,0,Math.PI*2);
-// 		ctx.fillStyle = 'black';
-// 		ctx.fill();
-// 		ctx.closePath();
-// 		shell_list_left[i].x -= 10;
-// 	}
-// }
-
-// function shell_check(){
-// 	for(let i=0;i<shell_list_right.length;i++){
-// 		if(shell_list_right[i].x >= canvas.width){
-// 			shell_list_right[i].isDead = true;
-// 		}
-// 	}
-// 	for(let i=0;i<shell_list_left.length;i++){
-// 		if(shell_list_left[i].x <= 0){
-// 			shell_list_left[i].isDead = true;
-// 		}
-// 	}
-// }
-
-// function remove_shell(){
-// 		for(let i=shell_list_right.length-1;i>=0;i--){
-// 			if(shell_list_right[i].isDead){
-// 				shell_list_right.splice(i,1);
-// 			}
-// 		}
-// 		for(let i=shell_list_left.length-1;i>=0;i--){
-// 			if(shell_list_left[i].isDead){
-// 				shell_list_left.splice(i,1);
-// 			}
-// 	}	
-// }
-
-// setInterval(function(){
-// 	if(iswork){ //몬스터가 나올때만 공격
-// 		if(player_look){
-// 			let obj = {};
-// 			obj.x = p_x+p_w/2;
-// 			obj.y = p_y+50;
-// 			obj.isDead = false;
-// 			shell_list_right.push(obj);
-// 		}
-// 		else if(player_look===false){
-// 			let obj = {};
-// 			obj.x = p_x+p_w/2;
-// 			obj.y = p_y+50;
-// 			obj.isDead = false;
-// 			shell_list_left.push(obj);
-// 		}
-// 	}
-// },500); // 공격속도
-
-// 공격 //
+//--------- 공격 ---------//
 
 
-// 무기
+//--------- 무기 ---------
 const stick_R = new Image();
 stick_R.src = "stick_R.png";
 const stick_L = new Image();
@@ -655,9 +587,11 @@ function weapon_draw(){
 	}
 	// stick //
 }
-// 무기 //
+//--------- 무기 ---------//
 
-// castle 
+
+
+//--------- castle --------- 
 const castle = new Image();
 castle.src = "castle.png";
 function castle_draw(){
@@ -674,10 +608,14 @@ ctx.fillStyle = 'red';
 ctx.fillRect(canvas.width/2-125, canvas.height-270, castle_hp_width, 20);	
 ctx.closePath();
 }
-// castle //
+//--------- castle ---------//
 
 
 
+
+
+
+//--------- 몹들 나오는 속도와 카운팅 ---------
 let iswork = false; 
 let iswork_count = 0;
 setInterval(function(){
@@ -692,9 +630,10 @@ setInterval(function(){
 		}
 	}
 },2000);// enemy maker
+//--------- 몹들 나오는 속도와 카운팅 ---------//
 
 
-// 캔버스 드로우 함수
+//--------- 캔버스 드로우 함수 ---------
 function draw(){
 	ctx.clearRect(0,0,canvas.width,canvas.height);
 	player_draw();
@@ -705,20 +644,19 @@ function draw(){
 	mon1_hp_draw();
 	random_num();
 	monster_check();
-	// monster_dead();
 	monster_remove();
 	castle_hp();
 	attack_check();
 	weapon_draw();
-	// shell_draw();
-	// shell_check();
-	// remove_shell();
 }
 setInterval(draw,10);
-// 캔버스 드로우 함수 //
+//--------- 캔버스 드로우 함수 ---------//
 
 
-//
+
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
 </script>
 
 </body>
