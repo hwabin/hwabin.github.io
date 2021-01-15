@@ -64,7 +64,7 @@ display: none;
 .wrap .menu {
 	width:900px;
 	height:600px;
-	background: grey;
+	background: #e2e2e2;
 	margin:0 auto;
 	position: absolute; top: 50px;
 	display: none;
@@ -87,7 +87,7 @@ display: none;
 }
 .wrap .menu .box1 {
 	width:100px; height:100px;
-	border: 2px solid black;
+	border: 2px solid grey;
 	margin: 30px;
 	display: flex;
 	justify-content:center;
@@ -98,7 +98,7 @@ display: none;
 .wrap .myinfo_page {
 	width:900px;
 	height:600px;
-	background: grey;
+	background: #e2e2e2;
 	margin:0 auto;
 	position: absolute; top: 50px;
 	display: none;
@@ -110,7 +110,7 @@ display: none;
 .wrap .shop_page {
 	width:900px;
 	height:600px;
-	background: grey;
+	background: #e2e2e2;
 	margin:0 auto;
 	position: absolute; top: 50px;
 	display: none;
@@ -122,7 +122,7 @@ display: none;
 .wrap .field_page {
 	width:900px;
 	height:600px;
-	background: grey;
+	background: #e2e2e2;
 	margin:0 auto;
 	position: absolute; top: 50px;
 	display: none;
@@ -134,7 +134,7 @@ display: none;
 /*Field Page */
 .field_page .field_box {
 	width:100px; height:100px;
-	border: 2px solid black;
+	border: 2px solid grey;
 	margin: 30px;
 	display: flex;
 	justify-content:center;
@@ -204,7 +204,7 @@ display: none;
 <!-- field 페이지 -->
 <div class="field_page">
 	<div class="field_box" id = "monster1">Lv1</div>
-	<div class="field_box"></div>
+	<div class="field_box" id = "monster2">Lv2</div>
 	<div class="field_box"></div>
 	<div class="field_box"></div>
 	<div class="field_box"></div>
@@ -263,22 +263,26 @@ start_btn.addEventListener("touchstart",function(){
 	canvas.style.display="block";
 	menu_btn.style.display="block";
 	top_text.style.display="block";
-	// menu_bar.style.display="flex";
+	gold = 0;
+	gold_text.innerHTML = "GOLD";
 });
 //--------- 스타트 버튼 눌렀을때 ---------//
 
 //--------- 이어하기 버튼 눌렀을때 ---------
 load_btn.addEventListener("touchstart",function(){
-	if(save_date === null){
+	if(save_date === null){ //데이터가 없을때
 		alert("저장된 데이터가 없습니다.");
 	}
-	// else{
-	// 	let gold_inner = localStorage.getItem("date");
-	// 	gold_icon.innerHTML = gold_inner + " GOLD";
-	// 	main_page.style.display="none";
-	// 	menu_bar.style.display="flex";
-	// 	gold = Number(gold_inner);
-	// }
+	else{ //데이터가 존재 할때
+		let gold_inner = localStorage.getItem("date");
+		gold_text.innerHTML = "GOLD " + gold_inner;
+		save_gold = Number(gold_inner);
+		main_page.style.display="none";
+		canvas.style.display="block";
+		menu_btn.style.display="block";
+		top_text.style.display="block";
+		gold = save_gold;
+	}
 });
 //--------- 이어하기 버튼 눌렀을때 ---------//
 
@@ -301,10 +305,14 @@ menu_close_btn.addEventListener("touchstart",function(){
 });
 //--------- 메뉴닫기 버튼 눌렀을때 ---------//
 
-// const save_btn = document.querySelector("#save");
-// save_btn.addEventListener("click",function(){
-// 	localStorage.setItem("date",Number(gold));
-// });
+//--------- SAVE 단 ----------
+const save_btn = document.querySelector("#save_btn");
+let save_gold = 0;
+save_btn.addEventListener("click",function(){
+	save_gold = gold;
+	localStorage.setItem("date",Number(save_gold));
+});
+//--------- SAVE 단 ---------- //
 
 //--------- 홈으로(메인페이지로가기)가기 버튼을 눌렀을때 ---------
 main_move.addEventListener("touchstart",function(){
@@ -314,6 +322,7 @@ main_move.addEventListener("touchstart",function(){
 	menu.style.display="none";
 	menu_close_btn.style.display="none";
 	top_text.style.display="none";
+	iswork = false;
 });
 //--------- 홈으로(메인페이지로가기)가기 버튼을 눌렀을때 ---------//
 
@@ -355,23 +364,32 @@ field_btn.addEventListener("touchstart",function(){
 	menu.style.display="none";
 });
 
+const monster1_btn = document.querySelector("#monster1");
+const monster2_btn = document.querySelector("#monster2");
+monster1_btn.addEventListener("touchstart",function(){
+	mon_type = 1;
+	iswork = true;
+});
+monster2_btn.addEventListener("touchstart",function(){
+	mon_type = 2;
+	iswork = true;
+});
+
+
+function random_num(){ //0~1의 랜덤숫자 만들기
+	monster_load_random = Math.floor(Math.random()*2);
+}
+
+
+					 // <---------  Monster 1 ---------->
 const mon1_R = new Image();
 mon1_R.src = "mon1_R.png";
 const mon1_L = new Image();
 mon1_L.src = "mon1_L.png";
 
-const monster1_btn = document.querySelector("#monster1");
-monster1_btn.addEventListener("touchstart",function(){
-	iswork = true;
-});
-
 let mon1_R_list = [];
 let mon1_L_list = [];
 let monster_load_random = 0;
-
-function random_num(){ //0~1의 랜덤숫자 만들기
-	monster_load_random = Math.floor(Math.random()*2);
-}
 
 function monster1_make(){ 
 	if(monster_load_random===0){  //왼쪽에서 나오는 몬스터
@@ -435,7 +453,9 @@ function mon1_hp_draw(){
 
 }
 
-function monster_check(){ // 몬스터를 삭제하는 로직
+
+
+function monster1_check(){ // 몬스터를 삭제하는 로직
 	for(let i=0;i<mon1_R_list.length;i++){
 		if(mon1_R_list[i].x >= canvas.width/2-45){
 			mon1_R_list[i].isDead = true;
@@ -451,7 +471,7 @@ function monster_check(){ // 몬스터를 삭제하는 로직
 }
 
 
-function monster_remove(){ // 몬스터를 배열에서 삭제
+function monster1_remove(){ // 몬스터를 배열에서 삭제
 	for(let i=mon1_R_list.length-1;i>=0;i--){
 		if(mon1_R_list[i].isDead){
 			mon1_R_list.splice(i,1);
@@ -463,6 +483,112 @@ function monster_remove(){ // 몬스터를 배열에서 삭제
 		}
 	}
 }
+ 					// <---------  Monster 1 ----------> //
+
+
+					 // <---------  Monster 2 ----------> 
+const mon2_R = new Image();
+mon2_R.src = "mon2_R.png";
+const mon2_L = new Image();
+mon2_L.src = "mon2_L.png";
+
+let mon2_R_list = [];
+let mon2_L_list = [];
+
+function monster2_make(){ 
+	if(monster_load_random===0){  //왼쪽에서 나오는 몬스터
+		let mon2_R_obj = {};
+		mon2_R_obj.monster2_img = mon2_R;
+		mon2_R_obj.x = 0;
+		mon2_R_obj.y = canvas.height-50;
+		mon2_R_obj.w = 100;
+		mon2_R_obj.h = 50;
+		mon2_R_obj.s = 1;
+		mon2_R_obj.isDead = false;
+		mon2_R_obj.damage = 20;
+		mon2_R_obj.hp = 20;
+		mon2_R_obj.gold = 20; 
+		mon2_R_list.push(mon2_R_obj);
+	}
+	else if(monster_load_random===1){ // 오른쪽에서 나오는 몬스터
+		let mon2_L_obj = {};
+		mon2_L_obj.monster2_img = mon2_L;
+		mon2_L_obj.x = canvas.width-100;
+		mon2_L_obj.y = canvas.height-50;
+		mon2_L_obj.w = 100;
+		mon2_L_obj.h = 50;
+		mon2_L_obj.s = 1;
+		mon2_L_obj.isDead = false;
+		mon2_L_obj.damage = 20;
+		mon2_L_obj.hp = 20;
+		mon2_L_obj.gold = 20;
+		mon2_L_list.push(mon2_L_obj);
+	}
+}
+
+function mon2_R_draw(){
+	for(let i=0;i<mon2_R_list.length;i++){ // 왼쪽에서 나오는 몬스터 그리기
+		let tmp = mon2_R_list[i];
+		ctx.beginPath();
+		ctx.drawImage(tmp.monster2_img, tmp.x, tmp.y, tmp.w, tmp.h);
+		ctx.closePath();
+		tmp.x += 2;	 // 몬스터 이동속도
+	}
+}
+function mon2_L_draw(){ 
+	for(let i=0;i<mon2_L_list.length;i++){ // 오른쪽에서 나오는 몬스터 그리기
+		let tmp = mon2_L_list[i];
+		ctx.beginPath();
+		ctx.drawImage(tmp.monster2_img, tmp.x, tmp.y, tmp.w, tmp.h);
+		ctx.closePath();
+		tmp.x -= 2; // 몬스터 이동속도
+	}
+}
+
+function mon2_hp_draw(){
+	for(let i=0;i<mon2_R_list.length;i++){
+		ctx.fillStyle = 'red';
+		ctx.fillRect(mon2_R_list[i].x, canvas.height-170, mon2_R_list[i].hp, 20);
+	}
+	for(let i=0;i<mon2_L_list.length;i++){
+		ctx.fillStyle = 'red';
+		ctx.fillRect(mon2_L_list[i].x, canvas.height-170, mon2_L_list[i].hp, 20);
+	}
+
+}
+
+
+
+function monster2_check(){ // 몬스터를 삭제하는 로직
+	for(let i=0;i<mon2_R_list.length;i++){
+		if(mon2_R_list[i].x >= canvas.width/2-45){
+			mon2_R_list[i].isDead = true;
+			castle_hp_width -= mon2_R_list[i].damage;
+		}
+	}
+	for(let j=0;j<mon2_L_list.length;j++){	
+		if(mon2_L_list[j].x <=  canvas.width/2-45){
+			mon2_L_list[j].isDead = true;
+			castle_hp_width -= mon2_L_list[j].damage;
+		}
+	}
+}
+
+
+function monster2_remove(){ // 몬스터를 배열에서 삭제
+	for(let i=mon2_R_list.length-1;i>=0;i--){
+		if(mon2_R_list[i].isDead){
+			mon2_R_list.splice(i,1);
+		}
+	}		
+	for(let j=mon2_L_list.length-1;j>=0;j--){
+		if(mon2_L_list[j].isDead){
+			mon2_L_list.splice(j,1);
+		}
+	}
+}
+
+ 					// <---------  Monster 2----------> //
 
 //--------- field page 섹션 ---------//
 
@@ -538,6 +664,7 @@ let weapon_state = 0;
 let attack = false;
 let test = canvas.height-100;
 function attack_check(){
+	//---------- Monster 1 ----------
 	for(let i=mon1_R_list.length-1;i>=0;i--){ // 왼쪽 공격 
 		let tmp = mon1_R_list[i];
 		if(p_x-100 <= tmp.x&&player_look===false){
@@ -552,6 +679,33 @@ function attack_check(){
 	}
 	for(let i=mon1_L_list.length-1;i>=0;i--){ // 오른쪽 공격	
 		let tmp = mon1_L_list[i];
+		if(p_x+50 >= tmp.x&&player_look){
+			tmp.hp -= weapon_damage[weapon_state];
+			tmp.x += 70;
+			if(tmp.hp<=0){ // HP가 0이되면 
+				tmp.isDead = true;
+				gold += tmp.gold;
+				gold_text.innerHTML = "GOLD  "+gold;
+			}
+		}
+	}
+	// ---------- Monster 1 ---------- //
+
+	// ---------- Monster 2 ---------- 
+		for(let i=mon2_R_list.length-1;i>=0;i--){ // 왼쪽 공격 
+		let tmp = mon2_R_list[i];
+		if(p_x-100 <= tmp.x&&player_look===false){
+			tmp.hp -= weapon_damage[weapon_state];
+			tmp.x -= 70;
+			if(tmp.hp<=0){ // HP가 0이되면 
+				tmp.isDead = true;
+				gold += tmp.gold;
+				gold_text.innerHTML = "GOLD  "+gold;
+			}
+		}
+	}
+	for(let i=mon2_L_list.length-1;i>=0;i--){ // 오른쪽 공격	
+		let tmp = mon2_L_list[i];
 		if(p_x+50 >= tmp.x&&player_look){
 			tmp.hp -= weapon_damage[weapon_state];
 			tmp.x += 70;
@@ -618,18 +772,29 @@ ctx.closePath();
 //--------- 몹들 나오는 속도와 카운팅 ---------
 let iswork = false; 
 let iswork_count = 0;
+let mon_type = 0;
 setInterval(function(){
-	if(iswork){
+	if(iswork&&mon_type===1){
 		monster1_make();
 		iswork_count++;
-		if(iswork_count>=10){ // 몬스터가 나오는 수
-			iswork = false;
-			if(iswork_count===10){
-				iswork_count = 0;
-			}
-		}
+		mon_count();
+	}
+	else if(iswork&&mon_type===2){
+		monster2_make();
+		iswork_count++;
+		mon_count();
 	}
 },2000);// enemy maker
+
+function mon_count(){
+	if(iswork_count>=10){ // 몬스터가 나오는 수
+		iswork = false;
+		if(iswork_count===10){
+			iswork_count = 0;
+			iswork_detect = false;
+		}
+	}
+}
 //--------- 몹들 나오는 속도와 카운팅 ---------//
 
 
@@ -639,12 +804,20 @@ function draw(){
 	player_draw();
 	player_move();
 	castle_draw();
+
 	mon1_R_draw();
 	mon1_L_draw();
 	mon1_hp_draw();
+	monster1_check();
+	monster1_remove();
+
+	mon2_R_draw();
+	mon2_L_draw();
+	mon2_hp_draw();
+	monster2_check();
+	monster2_remove();
+
 	random_num();
-	monster_check();
-	monster_remove();
 	castle_hp();
 	attack_check();
 	weapon_draw();
