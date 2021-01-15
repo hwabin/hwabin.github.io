@@ -383,9 +383,9 @@ function random_num(){ //0~1의 랜덤숫자 만들기
 
 					 // <---------  Monster 1 ---------->
 const mon1_R = new Image();
-mon1_R.src = "/image/mon1_R.png";
+mon1_R.src = "image/mon1_R.png";
 const mon1_L = new Image();
-mon1_L.src = "/image/mon1_L.png";
+mon1_L.src = "image/mon1_L.png";
 
 let mon1_R_list = [];
 let mon1_L_list = [];
@@ -428,7 +428,7 @@ function mon1_R_draw(){
 		ctx.beginPath();
 		ctx.drawImage(tmp.monster1_img, tmp.x, tmp.y, tmp.w, tmp.h);
 		ctx.closePath();
-		tmp.x += 2;	 // 몬스터 이동속도
+		tmp.x += 1;	 // 몬스터 이동속도
 	}
 }
 function mon1_L_draw(){ 
@@ -437,7 +437,7 @@ function mon1_L_draw(){
 		ctx.beginPath();
 		ctx.drawImage(tmp.monster1_img, tmp.x, tmp.y, tmp.w, tmp.h);
 		ctx.closePath();
-		tmp.x -= 2; // 몬스터 이동속도
+		tmp.x -= 1; // 몬스터 이동속도
 	}
 }
 
@@ -488,9 +488,9 @@ function monster1_remove(){ // 몬스터를 배열에서 삭제
 
 					 // <---------  Monster 2 ----------> 
 const mon2_R = new Image();
-mon2_R.src = "/image/mon2_R.png";
+mon2_R.src = "image/mon2_R.png";
 const mon2_L = new Image();
-mon2_L.src = "/image/mon2_L.png";
+mon2_L.src = "image/mon2_L.png";
 
 let mon2_R_list = [];
 let mon2_L_list = [];
@@ -532,7 +532,7 @@ function mon2_R_draw(){
 		ctx.beginPath();
 		ctx.drawImage(tmp.monster2_img, tmp.x, tmp.y, tmp.w, tmp.h);
 		ctx.closePath();
-		tmp.x += 2;	 // 몬스터 이동속도
+		tmp.x += 1;	 // 몬스터 이동속도
 	}
 }
 function mon2_L_draw(){ 
@@ -541,7 +541,7 @@ function mon2_L_draw(){
 		ctx.beginPath();
 		ctx.drawImage(tmp.monster2_img, tmp.x, tmp.y, tmp.w, tmp.h);
 		ctx.closePath();
-		tmp.x -= 2; // 몬스터 이동속도
+		tmp.x -= 1; // 몬스터 이동속도
 	}
 }
 
@@ -638,10 +638,10 @@ let p_h = 100;
 let player_speed = 4; // 이동속도
 
 const player_1_f = new Image();
-player_1_f.src = "/image/player_1_f.png";
+player_1_f.src = "image/player_1_f.png";
 
 const player_1_r = new Image();
-player_1_r.src = "/image/player_1_r.png";
+player_1_r.src = "image/player_1_r.png";
 
 function player_draw(){
 	if(player_look){
@@ -723,9 +723,9 @@ function attack_check(){
 
 //--------- 무기 ---------
 const stick_R = new Image();
-stick_R.src = "/image/stick_R.png";
+stick_R.src = "image/stick_R.png";
 const stick_L = new Image();
-stick_L.src = "/image/stick_L.png";
+stick_L.src = "image/stick_L.png";
 
 function weapon_draw(){
 	// stick
@@ -747,7 +747,7 @@ function weapon_draw(){
 
 //--------- castle --------- 
 const castle = new Image();
-castle.src = "/image/castle.png";
+castle.src = "image/castle.png";
 function castle_draw(){
 	ctx.beginPath();
 	ctx.drawImage(castle,canvas.width/2-50,canvas.height-200,100,200);
