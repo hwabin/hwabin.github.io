@@ -17,7 +17,7 @@ display: none;
 	margin-top:50px;
 }
 .main {
-	background: grey;
+	background: #ebebeb;
 	width:100%;
 	height:100%;
 	display: flex;
@@ -28,8 +28,10 @@ display: none;
 .main .title {
 	width:95%;
 	height:400px;
-	background: black;
+	background: white;
 	position: relative; top:-200px;
+	font-size:50px;
+	text-align: center;
 }
 .main .start_game {
 	width:500px;
@@ -221,7 +223,9 @@ display: none;
 <!-- 메인 화면 부분 -->
 <div class="main">
 	<div class="title">
-		
+		<!-- 메인 타이틀 부분 -->
+		제작중
+		<!-- 메인 타이틀 부분 //-->
 	</div>
 	<div class="start_game">
 		처음시작
@@ -323,6 +327,7 @@ main_move.addEventListener("touchstart",function(){
 	menu_close_btn.style.display="none";
 	top_text.style.display="none";
 	iswork = false;
+	mon_clear();
 });
 //--------- 홈으로(메인페이지로가기)가기 버튼을 눌렀을때 ---------//
 
@@ -798,6 +803,42 @@ function mon_count(){
 //--------- 몹들 나오는 속도와 카운팅 ---------//
 
 
+//---------- Game Over ----------
+function game_over(){ // castle의 hp가 모두 닳았을 경우에 //
+	if(castle_hp_width <= 0){
+		canvas.style.display="none";
+		main_page.style.display="flex";
+		menu_btn.style.display="none";
+		menu.style.display="none";
+		menu_close_btn.style.display="none";
+		top_text.style.display="none";
+		iswork = false;
+		gold = 0;
+		castle_hp_width = 250;
+		mon_clear();
+	}
+}
+//---------- Game Over ----------//
+
+
+//---------- 호출된 몬스터들을 모두 지워버리기 ----------
+function mon_clear(){
+	for(let i=0;i<mon1_R_list.length;i++){
+		mon1_R_list[i].isDead = true;
+	}
+	for(let i=0;i<mon1_L_list.length;i++){
+		mon1_L_list[i].isDead = true;
+	}
+	for(let i=0;i<mon2_R_list.length;i++){
+		mon2_R_list[i].isDead = true;
+	}
+	for(let i=0;i<mon2_L_list.length;i++){
+		mon2_L_list[i].isDead = true;
+	}
+}
+//---------- 호출된 몬스터들을 모두 지워버리기 ----------//
+
+
 //--------- 캔버스 드로우 함수 ---------
 function draw(){
 	ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -821,6 +862,7 @@ function draw(){
 	castle_hp();
 	attack_check();
 	weapon_draw();
+	game_over();
 }
 setInterval(draw,10);
 //--------- 캔버스 드로우 함수 ---------//
