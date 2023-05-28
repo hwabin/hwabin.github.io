@@ -5,21 +5,25 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>test</title>
 <style type="text/css">
-*{box-sizing: border-box;}
+*{box-sizing: border-box;
+margin:0;
+padding: 0;}
 body{margin:0 auto;}
 .wrap {
+	margin-top: 0;
 	width:900px;
 	height:1300px;
-	margin:0 auto;
-	margin-top:50px;
+	overflow:auto;
 }
 
+
+.main {width:100%;height:100%;background-color: grey;}
 .logo{
 	margin:0 auto;
 	width: 610px;
 	height: 235px;
 	font-family: 'Inter';
-	font-style: normal;
+	font-style: normal;	
 	font-weight: 400;
 	font-size: 80px;
 	line-height: 97px;
@@ -29,13 +33,104 @@ body{margin:0 auto;}
 	justify-content: center;
 	color: #000000;
 }
+
+
+.home{
+	margin: 0 auto;
+	width:100%;
+	height:100%;
+	display: none;
+}
+
+.level {
+	width:150px;
+	height:50px;
+	border: 1px solid grey;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	font-size: 30px;
+	justify-content: center;
+}
+
+.money {
+	width:150px;
+	height:50px;
+	border: 1px solid grey;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	font-size: 30px;
+	justify-content: center;
+}
+
+.weight {
+	width:150px;
+	height:50px;
+	border: 1px solid grey;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	font-size: 30px;
+	justify-content: center;
+}
+
+.thirst {
+	width:150px;
+	height:50px;
+	border: 1px solid grey;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	font-size: 30px;
+	justify-content: center;
+}
+
+.hungry {
+	width:150px;
+	height:50px;
+	border: 1px solid grey;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	font-size: 30px;
+	justify-content: center;
+}
 </style>
 </head>
+
+
 <body>
 <div class="wrap">
-	<div class="logo">
-		dayz
+
+	<div class="main">
+		<div class="logo">
+			dayz
+		</div>
+	</div>
+
+	<div class="home">
+		<div class="level">level</div>
+		<div class="money">money</div>
+		<div class="weight">weight</div>
+		<div class="thirst">thirst</div>
+		<div class="hungry">hungry</div>
 	</div>
 </div>
+
+
+
+<script type="text/javascript">
+const main = document.querySelector(".main");
+const logo = document.querySelector(".logo");
+const home = document.querySelector(".home");
+logo.addEventListener("touchend",(
+	function (){
+		main.style.display = "none";
+		home.style.display = "block";
+	}));
+</script>
+
+
 </body>
 </html>
