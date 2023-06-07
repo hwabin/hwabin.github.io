@@ -196,6 +196,8 @@ body{margin:0 auto;}
 
 
 <script type="text/javascript">
+let startX;
+
 const main = document.querySelector(".main");
 const logo = document.querySelector(".logo");
 const home = document.querySelector(".home");
@@ -209,13 +211,20 @@ let hungry = document.querySelector(".hungry");
 let thirst_text = 100;
 let hungry_text = 100;
 
+document.addEventListener("touchend",touchend_H);
+function touchend_H(event){
+	event.preventDefault();
+	logo.addEventListener("touchend",function (){
+		alert("hello");
+	});
 
+}
 
-logo.addEventListener("touchend",(
-	function(){
-		main.style.display = "none";
-		home.style.display = "block";
-	}));
+// logo.addEventListener("touchend",(
+// 	function(){
+// 		main.style.display = "none";
+// 		home.style.display = "block";
+// 	}));
 
 function wow(){
 	if(home.style.display=="block"){
