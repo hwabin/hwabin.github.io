@@ -42,19 +42,14 @@ body{margin:0 auto;}
 	display: none;
 }
 
-.level {
-	width:150px;
-	height:50px;
-	border: 1px solid grey;
-	text-align: center;
-	display: flex;
-	align-items: center;
-	font-size: 30px;
-	justify-content: center;
+.status {
+	width:200px;
+	height:250px;
+	margin-right: 0;
 }
 
 .money {
-	width:150px;
+	width:200px;
 	height:50px;
 	border: 1px solid grey;
 	text-align: center;
@@ -65,7 +60,7 @@ body{margin:0 auto;}
 }
 
 .weight {
-	width:150px;
+	width:200px;
 	height:50px;
 	border: 1px solid grey;
 	text-align: center;
@@ -76,7 +71,7 @@ body{margin:0 auto;}
 }
 
 .thirst {
-	width:150px;
+	width:200px;
 	height:50px;
 	border: 1px solid grey;
 	text-align: center;
@@ -87,7 +82,7 @@ body{margin:0 auto;}
 }
 
 .hungry {
-	width:150px;
+	width:200px;
 	height:50px;
 	border: 1px solid grey;
 	text-align: center;
@@ -96,6 +91,69 @@ body{margin:0 auto;}
 	font-size: 30px;
 	justify-content: center;
 }
+
+.health {
+	width:200px;
+	height:50px;
+	border: 1px solid grey;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	font-size: 30px;
+	justify-content: center;
+}
+
+.menu_btn {
+	width:100px;
+	height:100px;
+	border: 1px solid grey;
+	position: absolute;
+	left:750px;
+	top: 50px;
+}
+
+.menu_close_btn {
+	width:100px;
+	height:100px;
+	border: 1px solid red;
+	position: absolute;
+	left:750px;
+	top:50px;
+}
+
+.game_over_page{
+	margin: 0 auto;
+	width:100%;
+	height:100%;
+	background-color: black;
+	display: none;
+}
+
+.game_over_text{
+	margin:0 auto;
+	width: 610px;
+	height: 235px;
+	font-family: 'Inter';
+	font-style: normal;	
+	font-weight: 400;
+	font-size: 80px;
+	line-height: 97px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	justify-content: center;
+	color: red;
+}
+
+.menu_page {
+	margin:0 auto;
+	width:100%;
+	height:100%;
+	background-color: grey;
+	display: none;
+}
+
+
 </style>
 </head>
 
@@ -110,12 +168,29 @@ body{margin:0 auto;}
 	</div>
 
 	<div class="home">
-		<div class="level">level</div>
-		<div class="money">money</div>
-		<div class="weight">weight</div>
-		<div class="thirst">thirst</div>
-		<div class="hungry">hungry</div>
+		<div class="status">
+			<div class="money">money 0</div>
+			<div class="weight">weight 0/80</div>
+			<div class="thirst">thirst 100%</div>
+			<div class="hungry">hungry 100%</div>
+			<div class="health">health 100%</div>
+		</div>
+		<div class="menu_btn"></div>
 	</div>
+
+	<div class="game_over_page">
+		<div class="game_over_text">
+			YOU DIE
+		</div>
+	</div>
+
+	<div class="menu_page">
+		<div class="menu_close_btn"></div>
+	</div>
+
+
+
+
 </div>
 
 
@@ -124,11 +199,49 @@ body{margin:0 auto;}
 const main = document.querySelector(".main");
 const logo = document.querySelector(".logo");
 const home = document.querySelector(".home");
+const game_over_page = document.querySelector(".game_over_page");
+const menu_btn = document.querySelector(".menu_btn");
+const menu_page = document.querySelector(".menu_page");
+const menu_close_btn = document.querySelector(".menu_close_btn");
+
+let thirst = document.querySelector(".thirst");
+let hungry = document.querySelector(".hungry");
+let thirst_text = 100;
+let hungry_text = 100;
+
+
+
 logo.addEventListener("touchend",(
-	function (){
+	function(){
 		main.style.display = "none";
 		home.style.display = "block";
 	}));
+
+function wow(){
+	if(home.style.display=="block"){
+			thirst_text -= 1;
+			hungry_text -= 1;
+			thirst.innerHTML = "thirst "+thirst_text+"%";
+			hungry.innerHTML = "hungry "+hungry_text+"%";
+			if(thirst_text === 0||hungry_text === 0){
+				home.style.display = "none";
+				game_over_page.style.display = "block";
+			}
+	}	
+}
+
+menu_btn.addEventListener("touchend",function (){
+	menu_page.style.display = "block";
+	home.style.display = "none";
+});
+menu_close_btn.addEventListener("touchend",function (){
+	menu_page.style.display = "none";
+	home.style.display = "block";
+});
+
+setInterval(function(){
+	wow();
+},500);
 </script>
 
 
