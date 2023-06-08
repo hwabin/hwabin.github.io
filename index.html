@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<meta charset="utf-8">
+	<meta name = "viewport" content = "user-scalable=no, width=device-width">
 	<title>test</title>
 <style type="text/css">
 *{box-sizing: border-box;
@@ -224,7 +225,7 @@ let hungry_text = 100;
 
 document.addEventListener("touchend",touchend_H);
 function touchend_H(event){
-	event.preventDefault();
+	// event.preventDefault();
 	logo.addEventListener("touchend",function (){
 		main.style.display = "none";
 		home.style.display = "block";
