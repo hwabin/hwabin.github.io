@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1.0, user-scalable=no" />
 	<meta charset="utf-8">
 	<title>test</title>
 <style type="text/css">
@@ -212,41 +210,34 @@ let thirst_text = 100;
 let hungry_text = 100;
 
 
-document.documentElement.addEventListener('touchstart', function (event) {
-     if (event.touches.length > 1) {
-          event.preventDefault(); 
-        } 
-    }, false);
 
-var lastTouchEnd = 0; 
-
-document.documentElement.addEventListener('touchend', function (event) {
-     var now = (new Date()).getTime();
-     if (now - lastTouchEnd <= 300) {
-          event.preventDefault(); 
-        } lastTouchEnd = now; 
-    }, false);
-
-logo.addEventListener("touchend",function (){
- 		main.style.display = "none";
- 		home.style.display = "block";
- 	});
-
-// document.addEventListener("touchend",touchend_H);
-// function touchend_H(event){
+// function touch_H(){
 // 	event.preventDefault();
-// 	logo.addEventListener("touchend",function (){
-// 		main.style.display = "none";
-// 		home.style.display = "block";
-// 	});
-
 // }
 
-// logo.addEventListener("touchend",(
-// 	function(){
-// 		main.style.display = "none";
-// 		home.style.display = "block";
-// 	}));
+// function touch_end_H(){
+// 	logo.addEventListener("touchend",function (){
+// 	 		main.style.display = "none";
+// 	 		home.style.display = "block";
+// 	 	});	
+// }
+
+document.addEventListener("touchend",touchend_H);
+function touchend_H(event){
+	event.preventDefault();
+	logo.addEventListener("touchend",function (){
+		main.style.display = "none";
+		home.style.display = "block";
+		alert("test");
+	});
+
+}
+
+logo.addEventListener("touchend",(
+	function(){
+		main.style.display = "none";
+		home.style.display = "block";
+	}));
 
 function wow(){
 	if(home.style.display=="block"){
