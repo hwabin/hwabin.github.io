@@ -1,266 +1,65 @@
 <!DOCTYPE html>
-<html>
-	<meta charset="utf-8">
-	<meta name = "viewport" content = "user-scalable=no, width=device-width">
-	<title>test</title>
-<style type="text/css">
-*{box-sizing: border-box;
-margin:0;
-padding: 0;}
-body{margin:0 auto;}
-.wrap {
-	margin-top: 0;
-	width:900px;
-	height:1300px;
-	overflow:auto;
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test_website</title>
+<style>
+*{
+    margin: 0;
+    padding: 0;
 }
-
-
-.main {width:100%;height:100%;background-color: grey;}
-.logo{
-	margin:0 auto;
-	width: 610px;
-	height: 235px;
-	font-family: 'Inter';
-	font-style: normal;	
-	font-weight: 400;
-	font-size: 80px;
-	line-height: 97px;
-	display: flex;
-	align-items: center;
-	text-align: center;
-	justify-content: center;
-	color: #000000;
+.header{
+    width:100%;
+    height:200px;
+    background: grey;
+    text-align: center;
 }
-
-
-.home{
-	margin: 0 auto;
-	width:100%;
-	height:100%;
-	display: none;
+.header h1 {
+    position: relative;
+    top:60px;
+    font-size: 44m;
 }
-
-.status {
-	width:200px;
-	height:250px;
-	margin-right: 0;
+.nav {
+    width:100%;
+    height:100px;
 }
-
-.money {
-	width:200px;
-	height:50px;
-	border: 1px solid grey;
-	text-align: center;
-	display: flex;
-	align-items: center;
-	font-size: 30px;
-	justify-content: center;
+.nav ul li {
+    list-style: none;
+    text-align: center;
+    float: left;
+    margin:50px;
 }
-
-.weight {
-	width:200px;
-	height:50px;
-	border: 1px solid grey;
-	text-align: center;
-	display: flex;
-	align-items: center;
-	font-size: 30px;
-	justify-content: center;
+.section {
+    width:100%;
+    height:500px;
+    border: 1px solid grey;
 }
-
-.thirst {
-	width:200px;
-	height:50px;
-	border: 1px solid grey;
-	text-align: center;
-	display: flex;
-	align-items: center;
-	font-size: 30px;
-	justify-content: center;
+.footer {
+    width:100%;
+    height:100px;
 }
-
-.hungry {
-	width:200px;
-	height:50px;
-	border: 1px solid grey;
-	text-align: center;
-	display: flex;
-	align-items: center;
-	font-size: 30px;
-	justify-content: center;
-}
-
-.health {
-	width:200px;
-	height:50px;
-	border: 1px solid grey;
-	text-align: center;
-	display: flex;
-	align-items: center;
-	font-size: 30px;
-	justify-content: center;
-}
-
-.menu_btn {
-	width:100px;
-	height:100px;
-	border: 1px solid grey;
-	position: absolute;
-	left:750px;
-	top: 50px;
-}
-
-.menu_close_btn {
-	width:100px;
-	height:100px;
-	border: 1px solid red;
-	position: absolute;
-	left:750px;
-	top:50px;
-}
-
-.game_over_page{
-	margin: 0 auto;
-	width:100%;
-	height:100%;
-	background-color: black;
-	display: none;
-}
-
-.game_over_text{
-	margin:0 auto;
-	width: 610px;
-	height: 235px;
-	font-family: 'Inter';
-	font-style: normal;	
-	font-weight: 400;
-	font-size: 80px;
-	line-height: 97px;
-	display: flex;
-	align-items: center;
-	text-align: center;
-	justify-content: center;
-	color: red;
-}
-
-.menu_page {
-	margin:0 auto;
-	width:100%;
-	height:100%;
-	background-color: grey;
-	display: none;
-}
-
 
 </style>
 </head>
-
-
 <body>
 <div class="wrap">
-
-	<div class="main">
-		<div class="logo">
-			dayz
-		</div>
-	</div>
-
-	<div class="home">
-		<div class="status">
-			<div class="money">money 0</div>
-			<div class="weight">weight 0/80</div>
-			<div class="thirst">thirst 100%</div>
-			<div class="hungry">hungry 100%</div>
-			<div class="health">health 100%</div>
-		</div>
-		<div class="menu_btn"></div>
-	</div>
-
-	<div class="game_over_page">
-		<div class="game_over_text">
-			YOU DIE
-		</div>
-	</div>
-
-	<div class="menu_page">
-		<div class="menu_close_btn"></div>
-	</div>
-
-
-
-
+    <div class="header">
+        <h1>test</h1>
+    </div>
+    <div class="nav">
+        <ul>
+            <li>test1</li>
+            <li>test2</li>
+            <li>test3</li>
+            <li>test4</li>
+        </ul>
+    </div>
+    <div class="section"></div>
+    <div class="footer"></div>
 </div>
 
-
-
-<script type="text/javascript">
-let startX;
-
-const main = document.querySelector(".main");
-const logo = document.querySelector(".logo");
-const home = document.querySelector(".home");
-const game_over_page = document.querySelector(".game_over_page");
-const menu_btn = document.querySelector(".menu_btn");
-const menu_page = document.querySelector(".menu_page");
-const menu_close_btn = document.querySelector(".menu_close_btn");
-
-let thirst = document.querySelector(".thirst");
-let hungry = document.querySelector(".hungry");
-let thirst_text = 100;
-let hungry_text = 100;
-
-
-
-// function touch_H(){
-// 	event.preventDefault();
-// }
-
-// function touch_end_H(){
-// 	logo.addEventListener("touchend",function (){
-// 	 		main.style.display = "none";
-// 	 		home.style.display = "block";
-// 	 	});	
-// }
-
-document.addEventListener("touchend",touchend_H);
-function touchend_H(event){
-	// event.preventDefault();
-	logo.addEventListener("touchend",function (){
-		main.style.display = "none";
-		home.style.display = "block";
-	});
-
-}
-
-
-function wow(){
-	if(home.style.display=="block"){
-			thirst_text -= 1;
-			hungry_text -= 1;
-			thirst.innerHTML = "thirst "+thirst_text+"%";
-			hungry.innerHTML = "hungry "+hungry_text+"%";
-			if(thirst_text === 0||hungry_text === 0){
-				home.style.display = "none";
-				game_over_page.style.display = "block";
-			}
-	}	
-}
-
-menu_btn.addEventListener("touchend",function (){
-	menu_page.style.display = "block";
-	home.style.display = "none";
-});
-menu_close_btn.addEventListener("touchend",function (){
-	menu_page.style.display = "none";
-	home.style.display = "block";
-});
-
-setInterval(function(){
-	wow();
-},500);
-</script>
-
+    
 
 </body>
 </html>
